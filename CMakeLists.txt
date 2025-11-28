@@ -23,7 +23,12 @@ else()
     target_compile_options(SeaFoxAdventures PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+# Dependency: Raylib
 set(PLATFORM "Desktop" CACHE STRING "" FORCE)
 set(OPENGL_VERSION "3.3" CACHE STRING "" FORCE)
 add_subdirectory(third_party/raylib)
 target_link_libraries(SeaFoxAdventures PRIVATE raylib)
+
+# Dependency: GSL
+add_subdirectory(third_party/gsl)
+target_link_libraries(SeaFoxAdventures PRIVATE Microsoft.GSL::GSL)
