@@ -7,6 +7,7 @@ project(SeaFoxAdventures
 )
 
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
 add_executable(SeaFoxAdventures)
 
@@ -21,3 +22,8 @@ if (MSVC)
 else()
     target_compile_options(SeaFoxAdventures PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+set(PLATFORM "Desktop" CACHE STRING "" FORCE)
+set(OPENGL_VERSION "3.3" CACHE STRING "" FORCE)
+add_subdirectory(third_party/raylib)
+target_link_libraries(SeaFoxAdventures PRIVATE raylib)
