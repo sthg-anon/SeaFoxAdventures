@@ -27,8 +27,32 @@ endif()
 set(PLATFORM "Desktop" CACHE STRING "" FORCE)
 set(OPENGL_VERSION "3.3" CACHE STRING "" FORCE)
 add_subdirectory(third_party/raylib)
-target_link_libraries(SeaFoxAdventures PRIVATE raylib)
 
 # Dependency: GSL
 add_subdirectory(third_party/gsl)
-target_link_libraries(SeaFoxAdventures PRIVATE Microsoft.GSL::GSL)
+
+# Dependency: ImGui
+add_library(imgui)
+target_sources(imgui PRIVATE
+    third_party/imgui/imgui_demo.cpp
+    third_party/imgui/imgui_draw.cpp
+    third_party/imgui/imgui_tables.cpp
+    third_party/imgui/imgui_widgets.cpp
+    third_party/imgui/imgui.cpp
+)
+target_include_directories(imgui PUBLIC third_party/imgui)
+
+# Dependency: rlImGui
+add_library(rlImGui)
+target_sources(rlImGui PRIVATE
+    third_party/rlImGui/rlImGui.cpp
+)
+target_include_directories(rlImGui PUBLIC third_party/rlImGui)
+target_compile_definitions(rlImGui PUBLIC NO_FONT_AWESOME)
+target_link_libraries(rlImGui PUBLIC imgui raylib)
+
+# Linking
+target_link_libraries(SeaFoxAdventures PRIVATE
+    Microsoft.GSL::GSL
+    rlImGui
+)

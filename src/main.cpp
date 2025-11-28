@@ -1,7 +1,8 @@
-#include <print>
 #include <cstdlib>
 #include <raylib.h>
 #include <gsl/gsl>
+#include <rlImGui.h>
+#include <imgui.h>
 
 int main()
 {
@@ -13,10 +14,19 @@ int main()
 
     SetTargetFPS(60);
 
+    rlImGuiSetup(true);
+    auto rlImGuiCleanup = gsl::finally(rlImGuiShutdown);
+
     while (!WindowShouldClose())
     {
         BeginDrawing();
         auto endDrawing = gsl::finally(EndDrawing);
+
+        rlImGuiBegin();
+        auto rlImGuiEndGuard = gsl::finally(rlImGuiEnd);
+
+        ImGui::ShowDemoWindow();
+
         ClearBackground(RAYWHITE);
         DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
     }
