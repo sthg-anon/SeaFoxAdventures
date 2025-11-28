@@ -11,8 +11,20 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
 add_executable(SeaFoxAdventures)
 
-target_sources(SeaFoxAdventures PRIVATE
+set(SFA_SOURCE_FILES
     src/main.cpp
+    src/assets/sprites/test_image.cpp
+    include/assets/sprites/test_image.hpp
+)
+
+target_sources(SeaFoxAdventures PRIVATE
+    ${SFA_SOURCE_FILES}
+)
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SFA_SOURCE_FILES})
+
+target_include_directories(SeaFoxAdventures PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 target_compile_features(SeaFoxAdventures PRIVATE cxx_std_23)
