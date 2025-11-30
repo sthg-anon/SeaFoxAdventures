@@ -15,6 +15,7 @@ set(SFA_SOURCE_FILES
     src/main.cpp
     src/assets/sprites/test_image.cpp
     include/assets/sprites/test_image.hpp
+    include/tile_type.hpp
 )
 
 target_sources(SeaFoxAdventures PRIVATE

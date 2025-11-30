@@ -18,6 +18,9 @@ You will need to package the assets before building. Run the following python co
 python headerize_files.py
 ```
 If any of the assets are changed, re-run this python command before building.
+The original assets are stored as .pxo, which are [Pixelorama](https://orama-interactive.itch.io/pixelorama) project files.
+Edit images in there, and then export to .png, which headerize_files.py then
+reads and embeds.
 ## MSVC
 ```bash
 cmake -S . -B build
