@@ -8,6 +8,8 @@ namespace sfa
         WaterSurface,
         UnderWater,
         Earth,
-        IronOre
+        IronOre,
+
+        Count
     };
 }
