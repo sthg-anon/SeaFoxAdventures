@@ -7,6 +7,7 @@ from git, don't forget to run:
 ```
 git submodule update --init
 ```
+This repository also includes LFS files, so make sure git-lfs is installed as well.
 ## Dependencies
 You will need the following installed:
 * CMake
