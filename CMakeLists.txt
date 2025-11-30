@@ -22,6 +22,9 @@ set(SFA_SOURCE_FILES
 
     src/world.cpp
     include/world.hpp
+
+    src/world_generator.cpp
+    include/world_generator.hpp
 )
 
 target_sources(SeaFoxAdventures PRIVATE

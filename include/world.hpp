@@ -9,10 +9,11 @@ namespace sfa
 {
     constexpr std::int32_t WorldWidth = 64;
     constexpr std::int32_t WorldHeight = 1024;
+    constexpr std::int32_t SkyHeight = 10;
 
     class World
     {
-        std::array<TileType, WorldWidth* WorldHeight> m_tiles;
+        std::array<TileType, WorldWidth * WorldHeight> m_tiles;
 
     public:
         World();

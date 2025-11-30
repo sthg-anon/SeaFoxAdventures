@@ -8,7 +8,7 @@ namespace sfa
 {
     World::World()
     {
-        m_tiles.fill(TileType::Sky);
+        m_tiles.fill(TileType::UnderWater);
     }
 
     TileType World::getTile(std::int32_t x, std::int32_t y) const
