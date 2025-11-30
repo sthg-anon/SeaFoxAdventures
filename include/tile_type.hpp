@@ -1,8 +1,10 @@
 #pragma once
 
+#include <cstdint>
+
 namespace sfa
 {
-    enum class TileType
+    enum class TileType : std::uint8_t
     {
         Sky,
         WaterSurface,

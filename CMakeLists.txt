@@ -19,6 +19,9 @@ set(SFA_SOURCE_FILES
 
     src/tile_data.cpp
     include/tile_data.hpp
+
+    src/world.cpp
+    include/world.hpp
 )
 
 target_sources(SeaFoxAdventures PRIVATE
