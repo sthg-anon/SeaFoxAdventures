@@ -16,11 +16,11 @@ You will need the following installed:
 ## Assets
 You will need to package the assets before building. Run the following python command:
 ```
-python headerize_files.py
+python HeaderizeFiles.py
 ```
 If any of the assets are changed, re-run this python command before building.
 The original assets are stored as .pxo, which are [Pixelorama](https://orama-interactive.itch.io/pixelorama) project files.
-Edit images in there, and then export to .png, which headerize_files.py then
+Edit images in there, and then export to .png, which HeaderizeFiles.py then
 reads and embeds.
 ## MSVC
 ```bash
