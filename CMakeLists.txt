@@ -15,12 +15,14 @@ set(SFA_SOURCE_FILES
     src/assets/sprites/TestImage.cpp
     src/assets/sprites/Tiles.cpp
     src/main.cpp
+    src/Renderer.cpp
     src/TileData.cpp
     src/World.cpp
     src/WorldGenerator.cpp
 
     include/assets/sprites/TestImage.hpp
     include/assets/sprites/Tiles.hpp
+    include/Renderer.hpp
     include/TileData.hpp
     include/TileType.hpp
     include/World.hpp
