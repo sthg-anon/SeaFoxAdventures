@@ -17,3 +17,126 @@
 *    misrepresented as being the original software.
 * 3. This notice may not be removed or altered from any source distribution.
 */
+
+#include "Renderer.hpp"
+
+#include <cmath>
+#include <gsl/gsl>
+
+#include <raylib.h>
+
+#include "assets/sprites/TestImage.hpp"
+
+namespace sfa
+{
+    Renderer::Renderer(std::int32_t screenWidth, std::int32_t screenHeight)
+        : m_screenWidth(screenWidth)
+        , m_screenHeight(screenHeight)
+        , m_worldSpaceCamera{ 0 }
+        , m_screenSpaceCamera{ 0 }
+        , m_renderTexture{ LoadRenderTexture(VirtualScreenWidth, VirtualScreenHeight) }
+        , m_sourceRec{ GetSourceRec() }
+        , m_destRec{ GetDestRec() }
+        , m_testTexture{ GetTestTexture() }
+    {
+        Expects(screenWidth > 0);
+        Expects(screenHeight > 0);
+
+        m_worldSpaceCamera.zoom = 1.0f;
+        m_screenSpaceCamera.zoom = 1.0f;
+    }
+
+    float Renderer::GetVirtualRatio() const
+    {
+        return static_cast<float>(m_screenWidth) / static_cast<float>(VirtualScreenWidth);
+    }
+
+    Renderer::~Renderer()
+    {
+        UnloadRenderTexture(m_renderTexture);
+        UnloadTexture(m_testTexture);
+    }
+
+    Rectangle Renderer::GetSourceRec() const
+    {
+        // This is the entire render texture. The height is negative because
+        // it needs to be flipped for "opengl reasons".
+        return Rectangle{
+            0.0f,
+            0.0f,
+            static_cast<float>(m_renderTexture.texture.width),
+            static_cast<float>(-m_renderTexture.texture.height)
+        };
+    }
+
+    Rectangle Renderer::GetDestRec() const
+    {
+        // Normally the destination rectangle would be the size of the window itself, but we
+        // add "virtual ratio" padding around the edges to avoid artifacts.
+        const float virtualRatio = GetVirtualRatio();
+        return Rectangle{
+            -virtualRatio,
+            -virtualRatio,
+            static_cast<float>(m_screenWidth) + (virtualRatio * 2),
+            static_cast<float>(m_screenHeight) + (virtualRatio * 2)
+        };
+    }
+
+    void Renderer::DrawFrame()
+    {
+        float cameraX = 0.0f;
+        float cameraY = 0.0f;
+
+        const float virtualRatio = GetVirtualRatio();
+
+        m_screenSpaceCamera.target = Vector2{ cameraX, cameraY };
+
+        m_worldSpaceCamera.target.x = std::truncf(m_screenSpaceCamera.target.x);
+        m_screenSpaceCamera.target.x -= m_worldSpaceCamera.target.x;
+        m_screenSpaceCamera.target.x *= virtualRatio;
+
+        m_worldSpaceCamera.target.y = std::truncf(m_screenSpaceCamera.target.y);
+        m_screenSpaceCamera.target.y -= m_worldSpaceCamera.target.y;
+        m_screenSpaceCamera.target.y *= virtualRatio;
+
+        {
+            BeginTextureMode(m_renderTexture);
+            auto endTextureModeGuard = gsl::finally(EndTextureMode);
+
+            ClearBackground(RAYWHITE);
+
+            BeginMode2D(m_worldSpaceCamera);
+            auto endMode2DGuard = gsl::finally(EndMode2D);
+
+            // Draw stuff to texture
+            DrawTexture(m_testTexture, 0, 0, WHITE);
+        }
+
+        {
+            BeginDrawing();
+            auto endDrawingGuard = gsl::finally(EndDrawing);
+
+            ClearBackground(RED);
+
+            BeginMode2D(m_screenSpaceCamera);
+            DrawTexturePro(
+                m_renderTexture.texture,
+                m_sourceRec,
+                m_destRec,
+                Vector2{ 0.0f, 0.0f },
+                0.0f,
+                WHITE);
+            EndMode2D();
+
+            // More resolution-independent drawing stuff can happen here.
+        }
+    }
+
+    Texture2D Renderer::GetTestTexture()
+    {
+        Image testImage = LoadImageFromMemory(".png", TestImage, TestImage_size);
+        auto unloadImageGuard = gsl::finally([&testImage]() { UnloadImage(testImage); });
+        Texture2D testTexture = LoadTextureFromImage(testImage);
+        return testTexture;
+    }
+}

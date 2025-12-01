@@ -17,3 +17,57 @@
 *    misrepresented as being the original software.
 * 3. This notice may not be removed or altered from any source distribution.
 */
+
+#pragma once
+
+#include <cstdint>
+
+#include <raylib.h>
+
+namespace sfa
+{
+    const std::int32_t VirtualScreenWidth = 320;
+    const std::int32_t VirtualScreenHeight = 180;
+
+    class Renderer
+    {
+    private:
+        // The dimensions of the actual window that is being rendered to.
+        std::int32_t m_screenWidth;
+        std::int32_t m_screenHeight;
+
+        // Game world camera. Used when drawing things to the render texture.
+        Camera2D m_worldSpaceCamera;
+
+        // Smoothing camera. Used when drawing the render texture to the screen.
+        Camera2D m_screenSpaceCamera;
+
+        // The low-res render texture that the game is drawn to. This is a resource
+        // managed by the Renderer and must be cleaned up.
+        RenderTexture2D m_renderTexture;
+
+        // Source and destination rectangles for "projecting" the render texture to
+        // the screen.
+        Rectangle m_sourceRec;
+        Rectangle m_destRec;
+
+        // Test texture, will remove later!
+        Texture2D m_testTexture;
+
+    public:
+        Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
+        ~Renderer();
+        Renderer(const Renderer&) = delete;
+        Renderer& operator=(const Renderer&) = delete;
+        Renderer(Renderer&&) = delete;
+        Renderer& operator=(Renderer&&) = delete;
+
+        void DrawFrame();
+
+    private:
+        float GetVirtualRatio() const;
+        Rectangle GetSourceRec() const;
+        Rectangle GetDestRec() const;
+        static Texture2D GetTestTexture();
+    };
+}
