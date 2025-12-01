@@ -12,23 +12,19 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 add_executable(SeaFoxAdventures)
 
 set(SFA_SOURCE_FILES
+    src/assets/sprites/TestImage.cpp
+    src/assets/sprites/Tiles.cpp
     src/main.cpp
-    include/tile_type.hpp
+    src/TileData.cpp
+    src/World.cpp
+    src/WorldGenerator.cpp
 
-    src/tile_data.cpp
-    include/tile_data.hpp
-
-    src/world.cpp
-    include/world.hpp
-
-    src/world_generator.cpp
-    include/world_generator.hpp
-    
-    src/assets/sprites/test_image.cpp
-    include/assets/sprites/test_image.hpp
-
-    src/assets/sprites/tiles.cpp
-    include/assets/sprites/tiles.hpp
+    include/assets/sprites/TestImage.hpp
+    include/assets/sprites/Tiles.hpp
+    include/TileData.hpp
+    include/TileType.hpp
+    include/World.hpp
+    include/WorldGenerator.hpp
 )
 
 target_sources(SeaFoxAdventures PRIVATE

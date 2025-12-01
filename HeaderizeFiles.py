@@ -50,5 +50,5 @@ def headerize_file(input_file: str, output_file: str, var_name: str):
             output.write("}\n")
 
 if __name__ == '__main__':
-    headerize_file("assets/sprites/test_image.png", "sprites/test_image", "test_image")
-    headerize_file("assets/sprites/tiles.png", "sprites/tiles", "tiles_sprite")
+    headerize_file("assets/sprites/TestImage.png", "sprites/TestImage", "TestImage")
+    headerize_file("assets/sprites/Tiles.png", "sprites/Tiles", "TilesSprite")
