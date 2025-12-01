@@ -26,6 +26,8 @@
 
 #include "assets/sprites/TestImage.hpp"
 #include "Renderer.hpp"
+#include "World.hpp"
+#include "WorldGenerator.hpp"
 
 int main()
 {
@@ -38,6 +40,8 @@ int main()
     SetTargetFPS(60);
 
     sfa::Renderer renderer(screenWidth, screenHeight);
+    static sfa::World world;
+    sfa::generate_world(world);
 
     /*rlImGuiSetup(true);
     auto rlImGuiCleanup = gsl::finally(rlImGuiShutdown);
@@ -50,7 +54,7 @@ int main()
 
     while (!WindowShouldClose())
     {
-        renderer.DrawFrame();
+        renderer.DrawFrame(world);
         //BeginDrawing();
         //auto endDrawing = gsl::finally(EndDrawing);
 

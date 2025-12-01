@@ -34,5 +34,52 @@ namespace sfa
         std::uint8_t texture_y;
     };
 
-    constexpr const TileData& getTileData(TileType type);
+    inline constexpr TileData g_tileData[static_cast<std::uint8_t>(TileType::Count)] =
+    {
+        // Sky
+        TileData{
+            .hardness = 0.0f,
+            .isSolid = false,
+            .texture_x = 0,
+            .texture_y = 0,
+        },
+
+        // WaterSurface
+        TileData{
+            .hardness = 0.0f,
+            .isSolid = false,
+            .texture_x = 1,
+            .texture_y = 0,
+        },
+
+        // UnderWater
+        TileData{
+            .hardness = 0.0f,
+            .isSolid = false,
+            .texture_x = 2,
+            .texture_y = 0,
+        },
+
+        // Earth
+        TileData{
+            .hardness = 1.0f,
+            .isSolid = true,
+            .texture_x = 3,
+            .texture_y = 0,
+        },
+
+        // IronOre
+        TileData{
+            .hardness = 1.5f,
+            .isSolid = true,
+            .texture_x = 0,
+            .texture_y = 1,
+        }
+    };
+
+    constexpr const TileData& getTileData(TileType type)
+    {
+        auto index = static_cast<std::uint8_t>(type);
+        return g_tileData[index];
+    }
 }

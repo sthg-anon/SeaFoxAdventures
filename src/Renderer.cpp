@@ -21,11 +21,15 @@
 #include "Renderer.hpp"
 
 #include <cmath>
-#include <gsl/gsl>
+#include <cstdint>
 
+#include <gsl/gsl>
 #include <raylib.h>
 
 #include "assets/sprites/TestImage.hpp"
+#include "assets/sprites/Tiles.hpp"
+#include "World.hpp"
+#include "TileData.hpp"
 
 namespace sfa
 {
@@ -38,6 +42,7 @@ namespace sfa
         , m_sourceRec{ GetSourceRec() }
         , m_destRec{ GetDestRec() }
         , m_testTexture{ GetTestTexture() }
+        , m_tilesTexture{ GetTilesTexture() }
     {
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
@@ -82,7 +87,7 @@ namespace sfa
         };
     }
 
-    void Renderer::DrawFrame()
+    void Renderer::DrawFrame(World& world)
     {
         float cameraX = 0.0f;
         float cameraY = 0.0f;
@@ -110,6 +115,32 @@ namespace sfa
 
             // Draw stuff to texture
             DrawTexture(m_testTexture, 0, 0, WHITE);
+
+            for (std::int32_t y = 0; y < WorldHeight; ++y)
+            {
+                for (std::int32_t x = 0; x < WorldWidth; ++x)
+                {
+                    const TileType tileType = world.getTile(x, y);
+                    const auto tileData = getTileData(tileType);
+                    DrawTexturePro(
+                        m_tilesTexture,
+                        Rectangle{
+                            static_cast<float>(tileData.texture_x * 16),
+                            static_cast<float>(tileData.texture_y * 16),
+                            16.0f,
+                            16.0f
+                        },
+                        Rectangle{
+                            static_cast<float>(x * 16),
+                            static_cast<float>(y * 16),
+                            16.0f,
+                            16.0f
+                        },
+                        Vector2{ 0.0f, 0.0f },
+                        0.0f,
+                        WHITE);
+                }
+            }
         }
 
         {
@@ -134,9 +165,17 @@ namespace sfa
 
     Texture2D Renderer::GetTestTexture()
     {
-        Image testImage = LoadImageFromMemory(".png", TestImage, TestImage_size);
+        Image testImage = LoadImageFromMemory(".png", TestImage, static_cast<std::int32_t>(TestImage_size));
         auto unloadImageGuard = gsl::finally([&testImage]() { UnloadImage(testImage); });
         Texture2D testTexture = LoadTextureFromImage(testImage);
         return testTexture;
+    }
+
+    Texture2D Renderer::GetTilesTexture()
+    {
+        Image tilesImage = LoadImageFromMemory(".png", TilesSprite, static_cast<std::int32_t>(TilesSprite_size));
+        auto unloadImageGuard = gsl::finally([&tilesImage]() { UnloadImage(tilesImage); });
+        Texture2D tilesTexture = LoadTextureFromImage(tilesImage);
+        return tilesTexture;
     }
 }

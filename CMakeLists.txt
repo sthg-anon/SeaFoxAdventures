@@ -16,7 +16,6 @@ set(SFA_SOURCE_FILES
     src/assets/sprites/Tiles.cpp
     src/main.cpp
     src/Renderer.cpp
-    src/TileData.cpp
     src/World.cpp
     src/WorldGenerator.cpp
 

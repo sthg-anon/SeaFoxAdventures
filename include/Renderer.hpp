@@ -24,6 +24,8 @@
 
 #include <raylib.h>
 
+#include "world.hpp"
+
 namespace sfa
 {
     const std::int32_t VirtualScreenWidth = 320;
@@ -54,6 +56,8 @@ namespace sfa
         // Test texture, will remove later!
         Texture2D m_testTexture;
 
+        Texture2D m_tilesTexture;
+
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
         ~Renderer();
@@ -62,12 +66,13 @@ namespace sfa
         Renderer(Renderer&&) = delete;
         Renderer& operator=(Renderer&&) = delete;
 
-        void DrawFrame();
+        void DrawFrame(World& world);
 
     private:
         float GetVirtualRatio() const;
         Rectangle GetSourceRec() const;
         Rectangle GetDestRec() const;
         static Texture2D GetTestTexture();
+        static Texture2D GetTilesTexture();
     };
 }
