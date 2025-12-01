@@ -1,7 +1,7 @@
-#include "tile_data.hpp"
+#include "TileData.hpp"
 
 #include <utility>
-#include "tile_type.hpp"
+#include "TileType.hpp"
 
 namespace sfa
 {

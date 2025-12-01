@@ -1,9 +1,9 @@
-#include "world_generator.hpp"
+#include "WorldGenerator.hpp"
 
 #include <cstdint>
 #include <random>
 
-#include "world.hpp"
+#include "World.hpp"
 
 namespace sfa
 {

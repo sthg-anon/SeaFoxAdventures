@@ -4,7 +4,7 @@
 #include <rlImGui.h>
 #include <imgui.h>
 
-#include "assets/sprites/test_image.hpp"
+#include "assets/sprites/TestImage.hpp"
 
 int main()
 {
@@ -19,7 +19,7 @@ int main()
     rlImGuiSetup(true);
     auto rlImGuiCleanup = gsl::finally(rlImGuiShutdown);
 
-    Image test_image = LoadImageFromMemory(".png", sfa::test_image, sfa::test_image_size);
+    Image test_image = LoadImageFromMemory(".png", sfa::TestImage, sfa::TestImage_size);
     auto unloadImage = gsl::finally([&test_image]() { UnloadImage(test_image); });
 
     Texture2D test_texture = LoadTextureFromImage(test_image);

@@ -3,7 +3,7 @@
 #include <array>
 #include <cstdint>
 
-#include "tile_type.hpp"
+#include "TileType.hpp"
 
 namespace sfa
 {
