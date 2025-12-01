@@ -13,8 +13,6 @@ add_executable(SeaFoxAdventures)
 
 set(SFA_SOURCE_FILES
     src/main.cpp
-    src/assets/sprites/test_image.cpp
-    include/assets/sprites/test_image.hpp
     include/tile_type.hpp
 
     src/tile_data.cpp
@@ -25,6 +23,12 @@ set(SFA_SOURCE_FILES
 
     src/world_generator.cpp
     include/world_generator.hpp
+    
+    src/assets/sprites/test_image.cpp
+    include/assets/sprites/test_image.hpp
+
+    src/assets/sprites/tiles.cpp
+    include/assets/sprites/tiles.hpp
 )
 
 target_sources(SeaFoxAdventures PRIVATE
