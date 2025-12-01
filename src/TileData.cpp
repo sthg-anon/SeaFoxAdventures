@@ -66,8 +66,8 @@ namespace sfa
         TileData{
             .hardness = 1.5f,
             .isSolid = true,
-            .texture_x = 4,
-            .texture_y = 0,
+            .texture_x = 0,
+            .texture_y = 1,
         }
     };
 
