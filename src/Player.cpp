@@ -20,6 +20,54 @@
 
 #include "Player.hpp"
 
+#include <cmath>
+
+#include <raylib.h>
+
 namespace sfa
 {
+    Player::Player()
+        : m_position{ 0.f, 0.f }
+        , m_speed(BaseSpeed)
+    {
+    }
+
+    void Player::ProcessInputs()
+    {
+        float deltaTime = GetFrameTime();
+
+        Vector2 movement = { 0.f, 0.f };
+        if (IsKeyDown(KEY_W))
+        {
+            movement.y -= 1.f;
+        }
+        if (IsKeyDown(KEY_S))
+        {
+            movement.y += 1.f;
+        }
+        if (IsKeyDown(KEY_A))
+        {
+            movement.x -= 1.f;
+        }
+        if (IsKeyDown(KEY_D))
+        {
+            movement.x += 1.f;
+        }
+
+        float length = std::hypot(movement.x, movement.y);
+
+        if (length > 0.0001f)
+        {
+            movement.x /= length;
+            movement.y /= length;
+        }
+
+        m_position.x += movement.x * m_speed * deltaTime;
+        m_position.y += movement.y * m_speed * deltaTime;
+    }
+
+    Vector2 Player::GetPosition() const
+    {
+        return m_position;
+    }
 }

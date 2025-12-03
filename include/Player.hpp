@@ -20,10 +20,24 @@
 
 #pragma once
 
+#include <raylib.h>
+
 namespace sfa
 {
     class Player
     {
+        static constexpr float BaseSpeed = 32.f;
 
+        // Player position
+        Vector2 m_position;
+
+        // Player speed
+        float m_speed;
+
+    public:
+        Player();
+
+        void ProcessInputs();
+        Vector2 GetPosition() const;
     };
 }

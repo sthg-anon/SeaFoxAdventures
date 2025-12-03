@@ -24,6 +24,7 @@
 #include <rlImGui.h>
 #include <imgui.h>
 
+#include "Player.hpp"
 #include "Renderer.hpp"
 #include "World.hpp"
 #include "WorldGenerator.hpp"
@@ -42,7 +43,7 @@ int main()
     static sfa::World world;
     sfa::generate_world(world);
 
-    renderer.SetCamera(0.f, 100.f);
+    sfa::Player player;
 
     /*rlImGuiSetup(true);
     auto rlImGuiCleanup = gsl::finally(rlImGuiShutdown);
@@ -55,7 +56,9 @@ int main()
 
     while (!WindowShouldClose())
     {
-        renderer.DrawFrame(world);
+        player.ProcessInputs();
+
+        renderer.DrawFrame(world, player);
         //BeginDrawing();
         //auto endDrawing = gsl::finally(EndDrawing);
 

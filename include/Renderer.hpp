@@ -24,6 +24,7 @@
 
 #include <raylib.h>
 
+#include "Player.hpp"
 #include "world.hpp"
 
 namespace sfa
@@ -56,10 +57,6 @@ namespace sfa
         // Tiles texture for drawing the world.
         Texture2D m_tilesTexture;
 
-        // Camera position
-        float m_cameraX;
-        float m_cameraY;
-
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
         ~Renderer();
@@ -68,9 +65,7 @@ namespace sfa
         Renderer(Renderer&&) = delete;
         Renderer& operator=(Renderer&&) = delete;
 
-        void DrawFrame(World& world);
-
-        void SetCamera(float x, float y);
+        void DrawFrame(World& world, Player& player);
 
     private:
         float GetVirtualRatio() const;

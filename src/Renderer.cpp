@@ -27,6 +27,7 @@
 #include <raylib.h>
 
 #include "assets/sprites/Tiles.hpp"
+#include "Player.hpp"
 #include "World.hpp"
 #include "TileData.hpp"
 
@@ -41,8 +42,6 @@ namespace sfa
         , m_sourceRec{ GetSourceRec() }
         , m_destRec{ GetDestRec() }
         , m_tilesTexture{ GetTilesTexture() }
-        , m_cameraX(0.0f)
-        , m_cameraY(0.0f)
     {
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
@@ -87,11 +86,11 @@ namespace sfa
         };
     }
 
-    void Renderer::DrawFrame(World& world)
+    void Renderer::DrawFrame(World& world, Player& player)
     {
         const float virtualRatio = GetVirtualRatio();
 
-        m_screenSpaceCamera.target = Vector2{ m_cameraX, m_cameraY };
+        m_screenSpaceCamera.target = player.GetPosition();
 
         m_worldSpaceCamera.target.x = std::truncf(m_screenSpaceCamera.target.x);
         m_screenSpaceCamera.target.x -= m_worldSpaceCamera.target.x;
@@ -109,6 +108,8 @@ namespace sfa
 
             BeginMode2D(m_worldSpaceCamera);
             auto endMode2DGuard = gsl::finally(EndMode2D);
+
+            // Camera follows player
 
             // Draw stuff to texture
             DrawWorld(world);
@@ -161,12 +162,6 @@ namespace sfa
                     WHITE);
             }
         }
-    }
-
-    void Renderer::SetCamera(float x, float y)
-    {
-        m_cameraX = x;
-        m_cameraY = y;
     }
 
     Texture2D Renderer::GetTilesTexture()
