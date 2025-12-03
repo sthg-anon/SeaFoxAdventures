@@ -43,6 +43,8 @@ int main()
     static sfa::World world;
     sfa::generate_world(world);
 
+    renderer.SetCamera(0.f, 100.f);
+
     /*rlImGuiSetup(true);
     auto rlImGuiCleanup = gsl::finally(rlImGuiShutdown);
 

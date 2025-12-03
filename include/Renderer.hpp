@@ -56,7 +56,12 @@ namespace sfa
         // Test texture, will remove later!
         Texture2D m_testTexture;
 
+        // Tiles texture for drawing the world.
         Texture2D m_tilesTexture;
+
+        // Camera position
+        float m_cameraX;
+        float m_cameraY;
 
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
@@ -67,6 +72,8 @@ namespace sfa
         Renderer& operator=(Renderer&&) = delete;
 
         void DrawFrame(World& world);
+
+        void SetCamera(float x, float y);
 
     private:
         float GetVirtualRatio() const;

@@ -43,6 +43,8 @@ namespace sfa
         , m_destRec{ GetDestRec() }
         , m_testTexture{ GetTestTexture() }
         , m_tilesTexture{ GetTilesTexture() }
+        , m_cameraX(0.0f)
+        , m_cameraY(0.0f)
     {
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
@@ -89,12 +91,9 @@ namespace sfa
 
     void Renderer::DrawFrame(World& world)
     {
-        float cameraX = 0.0f;
-        float cameraY = 0.0f;
-
         const float virtualRatio = GetVirtualRatio();
 
-        m_screenSpaceCamera.target = Vector2{ cameraX, cameraY };
+        m_screenSpaceCamera.target = Vector2{ m_cameraX, m_cameraY };
 
         m_worldSpaceCamera.target.x = std::truncf(m_screenSpaceCamera.target.x);
         m_screenSpaceCamera.target.x -= m_worldSpaceCamera.target.x;
@@ -161,6 +160,12 @@ namespace sfa
 
             // More resolution-independent drawing stuff can happen here.
         }
+    }
+
+    void Renderer::SetCamera(float x, float y)
+    {
+        m_cameraX = x;
+        m_cameraY = y;
     }
 
     Texture2D Renderer::GetTestTexture()
