@@ -69,3 +69,4 @@ def headerize_file(input_file: str, output_file: str, var_name: str):
 
 if __name__ == '__main__':
     headerize_file("assets/sprites/Tiles.png", "sprites/Tiles", "TilesSprite")
+    headerize_file("assets/sprites/Player.png", "sprites/Player", "PlayerSprite")
