@@ -53,9 +53,6 @@ namespace sfa
         Rectangle m_sourceRec;
         Rectangle m_destRec;
 
-        // Test texture, will remove later!
-        Texture2D m_testTexture;
-
         // Tiles texture for drawing the world.
         Texture2D m_tilesTexture;
 
@@ -80,7 +77,6 @@ namespace sfa
         Rectangle GetSourceRec() const;
         Rectangle GetDestRec() const;
         void DrawWorld(World& world);
-        static Texture2D GetTestTexture();
         static Texture2D GetTilesTexture();
     };
 }

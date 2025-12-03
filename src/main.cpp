@@ -24,7 +24,6 @@
 #include <rlImGui.h>
 #include <imgui.h>
 
-#include "assets/sprites/TestImage.hpp"
 #include "Renderer.hpp"
 #include "World.hpp"
 #include "WorldGenerator.hpp"

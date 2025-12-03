@@ -26,7 +26,6 @@
 #include <gsl/gsl>
 #include <raylib.h>
 
-#include "assets/sprites/TestImage.hpp"
 #include "assets/sprites/Tiles.hpp"
 #include "World.hpp"
 #include "TileData.hpp"
@@ -41,7 +40,6 @@ namespace sfa
         , m_renderTexture{ LoadRenderTexture(VirtualScreenWidth, VirtualScreenHeight) }
         , m_sourceRec{ GetSourceRec() }
         , m_destRec{ GetDestRec() }
-        , m_testTexture{ GetTestTexture() }
         , m_tilesTexture{ GetTilesTexture() }
         , m_cameraX(0.0f)
         , m_cameraY(0.0f)
@@ -61,7 +59,7 @@ namespace sfa
     Renderer::~Renderer()
     {
         UnloadRenderTexture(m_renderTexture);
-        UnloadTexture(m_testTexture);
+        UnloadTexture(m_tilesTexture);
     }
 
     Rectangle Renderer::GetSourceRec() const
@@ -113,8 +111,6 @@ namespace sfa
             auto endMode2DGuard = gsl::finally(EndMode2D);
 
             // Draw stuff to texture
-            DrawTexture(m_testTexture, 0, 0, WHITE);
-
             DrawWorld(world);
         }
 
@@ -171,14 +167,6 @@ namespace sfa
     {
         m_cameraX = x;
         m_cameraY = y;
-    }
-
-    Texture2D Renderer::GetTestTexture()
-    {
-        Image testImage = LoadImageFromMemory(".png", TestImage, static_cast<std::int32_t>(TestImage_size));
-        auto unloadImageGuard = gsl::finally([&testImage]() { UnloadImage(testImage); });
-        Texture2D testTexture = LoadTextureFromImage(testImage);
-        return testTexture;
     }
 
     Texture2D Renderer::GetTilesTexture()
