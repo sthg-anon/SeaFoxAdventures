@@ -29,6 +29,7 @@ namespace sfa
 {
     namespace
     {
+        const std::int32_t WaterDepth = 5;
     }
 
     void generate_world(World& world)
@@ -53,10 +54,19 @@ namespace sfa
             world.setTile(x, waterSurfaceY, TileType::WaterSurface);
         }
 
+        /* Water */
+        for (std::int32_t x = 0; x < WorldWidth; ++x)
+        {
+            for (std::int32_t y = waterSurfaceY + 1; y < waterSurfaceY + WaterDepth; ++y)
+            {
+                world.setTile(x, y, TileType::UnderWater);
+            }
+        }
+
         /* Underground */
         for (std::int32_t x = 0; x < WorldWidth; ++x)
         {
-            for (std::int32_t y = waterSurfaceY + 1; y < WorldHeight; ++y)
+            for (std::int32_t y = waterSurfaceY + WaterDepth + 1; y < WorldHeight; ++y)
             {
                 auto r = dist(gen);
                 if (r < 0.9f)
@@ -69,7 +79,7 @@ namespace sfa
         /* Iron ore */
         for (std::int32_t x = 0; x < WorldWidth; ++x)
         {
-            for (std::int32_t y = waterSurfaceY + 1; y < WorldHeight; ++y)
+            for (std::int32_t y = waterSurfaceY + WaterDepth + 1; y < WorldHeight; ++y)
             {
                 auto r = dist(gen);
                 if (r < 0.05f)
