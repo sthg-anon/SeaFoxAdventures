@@ -31,6 +31,8 @@ namespace sfa
     constexpr std::int32_t WorldHeight = 1024;
     constexpr std::int32_t SkyHeight = 10;
 
+    constexpr std::int32_t WorldTileSizePixels = 16;
+
     class World
     {
         std::array<TileType, WorldWidth * WorldHeight> m_tiles;

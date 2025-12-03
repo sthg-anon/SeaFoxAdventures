@@ -115,31 +115,7 @@ namespace sfa
             // Draw stuff to texture
             DrawTexture(m_testTexture, 0, 0, WHITE);
 
-            for (std::int32_t y = 0; y < WorldHeight; ++y)
-            {
-                for (std::int32_t x = 0; x < WorldWidth; ++x)
-                {
-                    const TileType tileType = world.getTile(x, y);
-                    const auto tileData = getTileData(tileType);
-                    DrawTexturePro(
-                        m_tilesTexture,
-                        Rectangle{
-                            static_cast<float>(tileData.texture_x * 16),
-                            static_cast<float>(tileData.texture_y * 16),
-                            16.0f,
-                            16.0f
-                        },
-                        Rectangle{
-                            static_cast<float>(x * 16),
-                            static_cast<float>(y * 16),
-                            16.0f,
-                            16.0f
-                        },
-                        Vector2{ 0.0f, 0.0f },
-                        0.0f,
-                        WHITE);
-                }
-            }
+            DrawWorld(world);
         }
 
         {
@@ -159,6 +135,35 @@ namespace sfa
             EndMode2D();
 
             // More resolution-independent drawing stuff can happen here.
+        }
+    }
+
+    void Renderer::DrawWorld(World& world)
+    {
+        for (std::int32_t y = 0; y < WorldHeight; ++y)
+        {
+            for (std::int32_t x = 0; x < WorldWidth; ++x)
+            {
+                const TileType tileType = world.getTile(x, y);
+                const auto tileData = getTileData(tileType);
+                DrawTexturePro(
+                    m_tilesTexture,
+                    Rectangle{
+                        static_cast<float>(tileData.texture_x * WorldTileSizePixels),
+                        static_cast<float>(tileData.texture_y * WorldTileSizePixels),
+                        WorldTileSizePixels,
+                        WorldTileSizePixels
+                    },
+                    Rectangle{
+                        static_cast<float>(x * WorldTileSizePixels),
+                        static_cast<float>(y * WorldTileSizePixels),
+                        WorldTileSizePixels,
+                        WorldTileSizePixels
+                    },
+                    Vector2{ 0.0f, 0.0f },
+                    0.0f,
+                    WHITE);
+            }
         }
     }
 

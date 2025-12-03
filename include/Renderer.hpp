@@ -79,6 +79,7 @@ namespace sfa
         float GetVirtualRatio() const;
         Rectangle GetSourceRec() const;
         Rectangle GetDestRec() const;
+        void DrawWorld(World& world);
         static Texture2D GetTestTexture();
         static Texture2D GetTilesTexture();
     };
