@@ -57,6 +57,9 @@ namespace sfa
         // Tiles texture for drawing the world.
         Texture2D m_tilesTexture;
 
+        // Player texture
+        Texture2D m_playerTexture;
+
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
         ~Renderer();
@@ -72,6 +75,8 @@ namespace sfa
         Rectangle GetSourceRec() const;
         Rectangle GetDestRec() const;
         void DrawWorld(World& world);
+        void DrawPlayer(Player& player);
         static Texture2D GetTilesTexture();
+        static Texture2D GetPlayerTexture();
     };
 }

@@ -27,6 +27,7 @@
 #include <raylib.h>
 
 #include "assets/sprites/Tiles.hpp"
+#include "assets/sprites/Player.hpp"
 #include "Player.hpp"
 #include "World.hpp"
 #include "TileData.hpp"
@@ -42,6 +43,7 @@ namespace sfa
         , m_sourceRec{ GetSourceRec() }
         , m_destRec{ GetDestRec() }
         , m_tilesTexture{ GetTilesTexture() }
+        , m_playerTexture{ GetPlayerTexture() }
     {
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
@@ -90,6 +92,7 @@ namespace sfa
     {
         const float virtualRatio = GetVirtualRatio();
 
+        // Camera follows player
         m_screenSpaceCamera.target = player.GetPosition();
 
         m_worldSpaceCamera.target.x = std::truncf(m_screenSpaceCamera.target.x);
@@ -109,10 +112,10 @@ namespace sfa
             BeginMode2D(m_worldSpaceCamera);
             auto endMode2DGuard = gsl::finally(EndMode2D);
 
-            // Camera follows player
 
             // Draw stuff to texture
             DrawWorld(world);
+            DrawPlayer(player);
         }
 
         {
@@ -164,11 +167,40 @@ namespace sfa
         }
     }
 
+    void Renderer::DrawPlayer(Player& player)
+    {
+        DrawTexturePro(
+            m_playerTexture,
+            Rectangle{
+                0,
+                0,
+                WorldTileSizePixels,
+                WorldTileSizePixels
+            },
+            Rectangle{
+                player.GetPosition().x + (VirtualScreenWidth / 2.0f),
+                player.GetPosition().y + (VirtualScreenHeight / 2.0f),
+                WorldTileSizePixels,
+                WorldTileSizePixels
+            },
+            Vector2{ 0.0f, 0.0f },
+            0.0f,
+            WHITE);
+    }
+
     Texture2D Renderer::GetTilesTexture()
     {
         Image tilesImage = LoadImageFromMemory(".png", TilesSprite, static_cast<std::int32_t>(TilesSprite_size));
         auto unloadImageGuard = gsl::finally([&tilesImage]() { UnloadImage(tilesImage); });
         Texture2D tilesTexture = LoadTextureFromImage(tilesImage);
         return tilesTexture;
+    }
+
+    Texture2D Renderer::GetPlayerTexture()
+    {
+        Image playerImage = LoadImageFromMemory(".png", PlayerSprite, static_cast<std::int32_t>(PlayerSprite_size));
+        auto unloadImageGuard = gsl::finally([&playerImage]() { UnloadImage(playerImage); });
+        Texture2D playerTexture = LoadTextureFromImage(playerImage);
+        return playerTexture;
     }
 }
