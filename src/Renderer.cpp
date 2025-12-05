@@ -50,6 +50,8 @@ namespace sfa
 
         m_worldSpaceCamera.zoom = 1.0f;
         m_screenSpaceCamera.zoom = 1.0f;
+
+        SetTextureFilter(m_renderTexture.texture, TEXTURE_FILTER_POINT);;
     }
 
     float Renderer::GetVirtualRatio() const
@@ -61,6 +63,7 @@ namespace sfa
     {
         UnloadRenderTexture(m_renderTexture);
         UnloadTexture(m_tilesTexture);
+        UnloadTexture(m_playerTexture);
     }
 
     Rectangle Renderer::GetSourceRec() const
@@ -195,6 +198,7 @@ namespace sfa
         Image tilesImage = LoadImageFromMemory(".png", TilesSprite, static_cast<std::int32_t>(TilesSprite_size));
         auto unloadImageGuard = gsl::finally([&tilesImage]() { UnloadImage(tilesImage); });
         Texture2D tilesTexture = LoadTextureFromImage(tilesImage);
+        SetTextureFilter(tilesTexture, TEXTURE_FILTER_POINT);
         return tilesTexture;
     }
 
@@ -203,6 +207,7 @@ namespace sfa
         Image playerImage = LoadImageFromMemory(".png", PlayerSprite, static_cast<std::int32_t>(PlayerSprite_size));
         auto unloadImageGuard = gsl::finally([&playerImage]() { UnloadImage(playerImage); });
         Texture2D playerTexture = LoadTextureFromImage(playerImage);
+        SetTextureFilter(playerTexture, TEXTURE_FILTER_POINT);
         return playerTexture;
     }
 }
