@@ -94,6 +94,8 @@ namespace sfa
 
         // Camera follows player
         m_screenSpaceCamera.target = player.GetPosition();
+        m_screenSpaceCamera.target.x = std::round(m_screenSpaceCamera.target.x);
+        m_screenSpaceCamera.target.y = std::round(m_screenSpaceCamera.target.y);
 
         m_worldSpaceCamera.target.x = std::truncf(m_screenSpaceCamera.target.x);
         m_screenSpaceCamera.target.x -= m_worldSpaceCamera.target.x;

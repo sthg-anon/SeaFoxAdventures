@@ -54,16 +54,19 @@ namespace sfa
             movement.x += 1.f;
         }
 
-        float length = std::hypot(movement.x, movement.y);
+        //float length = std::hypot(movement.x, movement.y);
 
-        if (length > 0.0001f)
-        {
-            movement.x /= length;
-            movement.y /= length;
-        }
+        //if (length > 0.0001f)
+        //{
+        //    movement.x /= length;
+        //    movement.y /= length;
+        //}
 
-        m_position.x += movement.x * m_speed * deltaTime;
-        m_position.y += movement.y * m_speed * deltaTime;
+        float diff_x = movement.x * m_speed * deltaTime;
+        float diff_y = movement.y * m_speed * deltaTime;
+
+        m_position.x += diff_x;
+        m_position.y += diff_y;
     }
 
     Vector2 Player::GetPosition() const
