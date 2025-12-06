@@ -174,12 +174,14 @@ namespace sfa
 
     void Renderer::DrawPlayer(Player& player)
     {
+        float flipX = player.IsFlippedX() ? -1.0f : 1.0f;
+
         DrawTexturePro(
             m_playerTexture,
             Rectangle{
                 0,
                 0,
-                -WorldTileSizePixels,
+                flipX * WorldTileSizePixels,
                 WorldTileSizePixels
             },
             Rectangle{
@@ -188,8 +190,8 @@ namespace sfa
                 WorldTileSizePixels,
                 WorldTileSizePixels
             },
-            Vector2{ 0.0f, 0.0f },
-            0.0f,
+            Vector2{ 8.0f, 8.0f },
+            player.GetTargetRotation(),
             WHITE);
     }
 

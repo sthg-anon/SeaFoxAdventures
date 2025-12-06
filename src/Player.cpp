@@ -28,7 +28,9 @@ namespace sfa
 {
     Player::Player()
         : m_position{ 0.f, 0.f }
-        , m_speed(BaseSpeed)
+        , m_speed{ BaseSpeed }
+        , m_targetRotation{ 0.0f }
+        , m_flipX{ false }
     {
     }
 
@@ -54,6 +56,37 @@ namespace sfa
             movement.x += 1.f;
         }
 
+        if (std::abs(movement.x) > 0.f || std::abs(movement.y) > 0.f)
+        {
+            float angleRad = std::atan2(movement.y, movement.x);
+            float angleDeg = angleRad * 180.f / PI;
+            if (angleDeg < 0.f)
+            {
+                angleDeg += 360.f;
+            }
+
+            if (angleDeg >= 60.f && angleDeg < 120.f)
+            {
+                m_targetRotation = 90.f; // North
+                m_flipX = false;
+            }
+            else if (angleDeg >= 120.f && angleDeg < 240.f)
+            {
+                m_targetRotation = 0.0f; // West
+                m_flipX = true;
+            }
+            else if (angleDeg >= 240.f && angleDeg < 300.f)
+            {
+                m_targetRotation = 270.f; // South
+                m_flipX = false;
+            }
+            else
+            {
+                m_targetRotation = 0.f; // East
+                m_flipX = false;
+            }
+        }
+
         //float length = std::hypot(movement.x, movement.y);
 
         //if (length > 0.0001f)
@@ -72,5 +105,15 @@ namespace sfa
     Vector2 Player::GetPosition() const
     {
         return m_position;
+    }
+
+    float Player::GetTargetRotation() const
+    {
+        return m_targetRotation;
+    }
+
+    bool Player::IsFlippedX() const
+    {
+        return m_flipX;
     }
 }

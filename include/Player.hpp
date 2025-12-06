@@ -34,10 +34,18 @@ namespace sfa
         // Player speed
         float m_speed;
 
+        // Where the player wants to face
+        float m_targetRotation;
+
+        // Whether or not the sprite needs to be flipped on the x axis.
+        bool m_flipX;
+
     public:
         Player();
 
         void ProcessInputs();
         Vector2 GetPosition() const;
+        float GetTargetRotation() const;
+        bool IsFlippedX() const;
     };
 }
