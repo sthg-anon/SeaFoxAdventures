@@ -34,7 +34,7 @@ int main()
     const int screenWidth = sfa::VirtualScreenWidth * 4;
     const int screenHeight = sfa::VirtualScreenHeight * 4;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "Sea Fox Adventures");
     auto cleanup = gsl::finally(CloseWindow);
 
     SetTargetFPS(60);

@@ -179,7 +179,7 @@ namespace sfa
             Rectangle{
                 0,
                 0,
-                WorldTileSizePixels,
+                -WorldTileSizePixels,
                 WorldTileSizePixels
             },
             Rectangle{
