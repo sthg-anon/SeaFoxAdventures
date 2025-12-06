@@ -37,8 +37,8 @@ namespace sfa
         // Where the player wants to face
         float m_targetRotation;
 
-        // Whether or not the sprite needs to be flipped on the x axis.
-        bool m_flipX;
+        // Whether or not the sprite needs to be flipped on the y axis.
+        bool m_flipY;
 
     public:
         Player();
@@ -46,6 +46,6 @@ namespace sfa
         void ProcessInputs();
         Vector2 GetPosition() const;
         float GetTargetRotation() const;
-        bool IsFlippedX() const;
+        bool IsFlippedY() const;
     };
 }

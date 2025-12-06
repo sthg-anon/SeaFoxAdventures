@@ -180,7 +180,6 @@ namespace sfa
         if (m_currentPlayerRotation < 0.0f)
         {
             m_currentPlayerRotation += 360.0f;
-
         }
         else if (m_currentPlayerRotation >= 360.0f)
         {
@@ -202,12 +201,7 @@ namespace sfa
             m_currentPlayerRotation = target;
         }
 
-        //TraceLog(LOG_INFO, "Current rotation: %.2f", m_currentPlayerRotation);
-        float flipX = 1.0f;
-        if (m_currentPlayerRotation > 140.0f && m_currentPlayerRotation < 220.0f)
-        {
-            flipX = -1.0f;
-        }
+        float flipY = player.IsFlippedY() ? -1.0f : 1.0f;
 
         DrawTexturePro(
             m_playerTexture,
@@ -215,7 +209,7 @@ namespace sfa
                 0,
                 0,
                 WorldTileSizePixels,
-                flipX* WorldTileSizePixels
+                flipY * WorldTileSizePixels
             },
             Rectangle{
                 player.GetPosition().x + (VirtualScreenWidth / 2.0f),

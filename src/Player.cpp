@@ -30,7 +30,7 @@ namespace sfa
         : m_position{ 0.f, 0.f }
         , m_speed{ BaseSpeed }
         , m_targetRotation{ 0.0f }
-        , m_flipX{ false }
+        , m_flipY{ false }
     {
     }
 
@@ -50,10 +50,12 @@ namespace sfa
         if (IsKeyDown(KEY_A))
         {
             movement.x -= 1.f;
+            m_flipY = true;
         }
         if (IsKeyDown(KEY_D))
         {
             movement.x += 1.f;
+            m_flipY = false;
         }
 
         if (std::abs(movement.x) > 0.f || std::abs(movement.y) > 0.f)
@@ -68,22 +70,18 @@ namespace sfa
             if (angleDeg >= 60.f && angleDeg < 120.f)
             {
                 m_targetRotation = 90.f; // North
-                //m_flipX = false;
             }
             else if (angleDeg >= 120.f && angleDeg < 240.f)
             {
                 m_targetRotation = 180.f; // West
-                //m_flipX = true;
             }
             else if (angleDeg >= 240.f && angleDeg < 300.f)
             {
                 m_targetRotation = 270.f; // South
-                //m_flipX = false;
             }
             else
             {
                 m_targetRotation = 0.f; // East
-                //m_flipX = false;
             }
         }
 
@@ -112,8 +110,8 @@ namespace sfa
         return m_targetRotation;
     }
 
-    bool Player::IsFlippedX() const
+    bool Player::IsFlippedY() const
     {
-        return m_flipX;
+        return m_flipY;
     }
 }
