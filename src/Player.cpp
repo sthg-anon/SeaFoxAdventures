@@ -68,22 +68,22 @@ namespace sfa
             if (angleDeg >= 60.f && angleDeg < 120.f)
             {
                 m_targetRotation = 90.f; // North
-                m_flipX = false;
+                //m_flipX = false;
             }
             else if (angleDeg >= 120.f && angleDeg < 240.f)
             {
-                m_targetRotation = 0.0f; // West
-                m_flipX = true;
+                m_targetRotation = 180.f; // West
+                //m_flipX = true;
             }
             else if (angleDeg >= 240.f && angleDeg < 300.f)
             {
                 m_targetRotation = 270.f; // South
-                m_flipX = false;
+                //m_flipX = false;
             }
             else
             {
                 m_targetRotation = 0.f; // East
-                m_flipX = false;
+                //m_flipX = false;
             }
         }
 

@@ -31,6 +31,7 @@ namespace sfa
 {
     const std::int32_t VirtualScreenWidth = 320;
     const std::int32_t VirtualScreenHeight = 180;
+    constexpr float PlayerRotationSpeed = 10.0f;
 
     class Renderer
     {
@@ -59,6 +60,9 @@ namespace sfa
 
         // Player texture
         Texture2D m_playerTexture;
+
+        // The player's current rotation. Used for linear interpolation.
+        float m_currentPlayerRotation;
 
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);

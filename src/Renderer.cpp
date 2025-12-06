@@ -44,6 +44,7 @@ namespace sfa
         , m_destRec{ GetDestRec() }
         , m_tilesTexture{ GetTilesTexture() }
         , m_playerTexture{ GetPlayerTexture() }
+        , m_currentPlayerRotation{ 0.0f }
     {
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
@@ -174,15 +175,47 @@ namespace sfa
 
     void Renderer::DrawPlayer(Player& player)
     {
-        float flipX = player.IsFlippedX() ? -1.0f : 1.0f;
+        float deltaTime = GetFrameTime();
+        float target = player.GetTargetRotation();
+        if (m_currentPlayerRotation < 0.0f)
+        {
+            m_currentPlayerRotation += 360.0f;
+
+        }
+        else if (m_currentPlayerRotation >= 360.0f)
+        {
+            m_currentPlayerRotation -= 360.0f;
+        }
+        float diff = target - m_currentPlayerRotation;
+        if (diff > 180.0f)
+        {
+            diff -= 360.0f;
+        }
+        else if (diff < -180.0f)
+        {
+            diff += 360.0f;
+        }
+        m_currentPlayerRotation += diff * PlayerRotationSpeed * deltaTime;
+
+        if (std::fabs(diff) < 0.1f)
+        {
+            m_currentPlayerRotation = target;
+        }
+
+        //TraceLog(LOG_INFO, "Current rotation: %.2f", m_currentPlayerRotation);
+        float flipX = 1.0f;
+        if (m_currentPlayerRotation > 140.0f && m_currentPlayerRotation < 220.0f)
+        {
+            flipX = -1.0f;
+        }
 
         DrawTexturePro(
             m_playerTexture,
             Rectangle{
                 0,
                 0,
-                flipX * WorldTileSizePixels,
-                WorldTileSizePixels
+                WorldTileSizePixels,
+                flipX* WorldTileSizePixels
             },
             Rectangle{
                 player.GetPosition().x + (VirtualScreenWidth / 2.0f),
@@ -191,7 +224,7 @@ namespace sfa
                 WorldTileSizePixels
             },
             Vector2{ 8.0f, 8.0f },
-            player.GetTargetRotation(),
+            m_currentPlayerRotation,
             WHITE);
     }
 
