@@ -18,6 +18,7 @@ set(SFA_SOURCE_FILES
     src/Player.cpp
     src/Renderer.cpp
     src/World.cpp
+    src/WorldCollision.cpp
     src/WorldGenerator.cpp
 
     include/assets/sprites/Player.hpp
@@ -27,6 +28,7 @@ set(SFA_SOURCE_FILES
     include/TileData.hpp
     include/TileType.hpp
     include/World.hpp
+    include/WorldCollision.hpp
     include/WorldGenerator.hpp
 )
 

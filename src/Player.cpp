@@ -24,6 +24,9 @@
 
 #include <raylib.h>
 
+#include "WorldCollision.hpp"
+#include "World.hpp"
+
 namespace
 {
     static constexpr float Acceleration = 200.0f;
@@ -85,16 +88,17 @@ namespace sfa
         }
 
         float length = std::hypot(input.x, input.y);
+        Vector2 moveDir{ 0.0f, 0.0f };
         if (length > 0.0001f)
         {
-            input.x /= length;
-            input.y /= length;
+            moveDir.x = input.x / length;
+            moveDir.y = input.y / length;
         }
 
         if (length > 0.f)
         {
-            m_velocity.x += input.x * Acceleration * deltaTime;
-            m_velocity.y += input.y * Acceleration * deltaTime;
+            m_velocity.x += moveDir.x * Acceleration * deltaTime;
+            m_velocity.y += moveDir.y * Acceleration * deltaTime;
         }
         else
         {
@@ -110,7 +114,49 @@ namespace sfa
             m_velocity.y *= scale;
         }
 
-        m_position.x += m_velocity.x * deltaTime;
-        m_position.y += m_velocity.y * deltaTime;
+        //m_position.x += m_velocity.x * deltaTime;
+        //m_position.y += m_velocity.y * deltaTime;
+    }
+
+    void Player::MoveWithCollision(const World& world)
+    {
+        float deltaTime = GetFrameTime();
+
+        Vector2 newPos = m_position;
+
+        float dx = m_velocity.x * deltaTime;
+        if (dx != 0.0f)
+        {
+            float testX = newPos.x + dx;
+            if (!CheckCollision(world, testX, newPos.y))
+            {
+                newPos.x = testX;
+            }
+            else
+            {
+                m_velocity.x = 0.0f;
+            }
+        }
+
+        float dy = m_velocity.y * deltaTime;
+        if (dy != 0.0f)
+        {
+            float testY = newPos.y + dy;
+            if (!CheckCollision(world, newPos.x, testY))
+            {
+                newPos.y = testY;
+            }
+            else
+            {
+                m_velocity.y = 0.0f;
+            }
+        }
+
+        m_position = newPos;
+    }
+
+    bool Player::CheckCollision(const World& world, float x, float y) const
+    {
+        return RectHitsSolid(world, x, y, PlayerHalfSize, PlayerHalfSize);
     }
 }

@@ -69,7 +69,7 @@ namespace sfa
             for (std::int32_t y = waterSurfaceY + WaterDepth + 1; y < WorldHeight; ++y)
             {
                 auto r = dist(gen);
-                if (r < 0.9f)
+                if (r < 0.8f)
                 {
                     world.SetTile(x, y, TileType::Earth);
                 }

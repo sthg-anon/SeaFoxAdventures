@@ -20,37 +20,9 @@
 
 #pragma once
 
-#include <raylib.h>
+#include "World.hpp"
 
 namespace sfa
 {
-    class World;
-
-    static constexpr float PlayerHalfSize = 8.0f;
-
-    class Player
-    {
-        // Player position
-        Vector2 m_position{ 32.f, 32.f };
-
-        // Where the player wants to face
-        float m_targetRotation{ 0.0f };
-
-        // Whether or not the sprite needs to be flipped on the y axis.
-        bool m_flipY{ false };
-
-        Vector2 m_velocity{ 0.0f, 0.0f };
-        
-        bool CheckCollision(const World& world, float x, float y) const;
-
-    public:
-        Player() = default;
-
-        void ProcessInputs();
-        void MoveWithCollision(const World& world);
-
-        Vector2 GetPosition() const { return m_position; }
-        float GetTargetRotation() const { return m_targetRotation; }
-        bool IsFlippedY() const { return m_flipY; }
-    };
+    bool RectHitsSolid(const World& world, float centerX, float centerY, float halfWidth, float halfHeight);
 }

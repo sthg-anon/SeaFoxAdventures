@@ -57,6 +57,7 @@ int main()
     while (!WindowShouldClose())
     {
         player.ProcessInputs();
+        player.MoveWithCollision(world);
 
         renderer.DrawFrame(world, player);
         //BeginDrawing();

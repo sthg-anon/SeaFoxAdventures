@@ -52,7 +52,9 @@ namespace sfa
         m_worldSpaceCamera.zoom = 1.0f;
         m_screenSpaceCamera.zoom = 1.0f;
 
-        SetTextureFilter(m_renderTexture.texture, TEXTURE_FILTER_POINT);;
+        m_worldSpaceCamera.offset = Vector2{ static_cast<float>(VirtualScreenWidth) * 0.5f, static_cast<float>(VirtualScreenHeight) * 0.5f };
+
+        SetTextureFilter(m_renderTexture.texture, TEXTURE_FILTER_POINT);
     }
 
     float Renderer::GetVirtualRatio() const
@@ -212,12 +214,12 @@ namespace sfa
                 flipY * WorldTileSizePixels
             },
             Rectangle{
-                player.GetPosition().x + (VirtualScreenWidth / 2.0f),
-                player.GetPosition().y + (VirtualScreenHeight / 2.0f),
+                player.GetPosition().x - PlayerHalfSize,
+                player.GetPosition().y - PlayerHalfSize,
                 WorldTileSizePixels,
                 WorldTileSizePixels
             },
-            Vector2{ 8.0f, 8.0f },
+            Vector2{ PlayerHalfSize, PlayerHalfSize },
             m_currentPlayerRotation,
             WHITE);
     }
