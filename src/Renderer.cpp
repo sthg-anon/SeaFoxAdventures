@@ -214,8 +214,8 @@ namespace sfa
                 flipY * WorldTileSizePixels
             },
             Rectangle{
-                player.GetPosition().x - PlayerHalfSize,
-                player.GetPosition().y - PlayerHalfSize,
+                player.GetPosition().x,
+                player.GetPosition().y,
                 WorldTileSizePixels,
                 WorldTileSizePixels
             },
