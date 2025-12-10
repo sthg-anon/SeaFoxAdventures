@@ -37,8 +37,7 @@ namespace sfa
     Renderer::Renderer(std::int32_t screenWidth, std::int32_t screenHeight)
         : m_screenWidth(screenWidth)
         , m_screenHeight(screenHeight)
-        , m_worldSpaceCamera{ 0 }
-        , m_screenSpaceCamera{ 0 }
+        , m_camera{ 0 }
         , m_renderTexture{ LoadRenderTexture(VirtualScreenWidth, VirtualScreenHeight) }
         , m_sourceRec{ GetSourceRec() }
         , m_destRec{ GetDestRec() }
@@ -49,10 +48,8 @@ namespace sfa
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
 
-        m_worldSpaceCamera.zoom = 1.0f;
-        m_screenSpaceCamera.zoom = 1.0f;
-
-        m_worldSpaceCamera.offset = Vector2{ static_cast<float>(VirtualScreenWidth) * 0.5f, static_cast<float>(VirtualScreenHeight) * 0.5f };
+        m_camera.zoom = 1.0f;
+        m_camera.offset = Vector2{ static_cast<float>(VirtualScreenWidth) * 0.5f, static_cast<float>(VirtualScreenHeight) * 0.5f };
 
         SetTextureFilter(m_renderTexture.texture, TEXTURE_FILTER_POINT);
     }
@@ -99,17 +96,9 @@ namespace sfa
         const float virtualRatio = GetVirtualRatio();
 
         // Camera follows player
-        m_screenSpaceCamera.target = player.GetPosition();
-        m_screenSpaceCamera.target.x = std::round(m_screenSpaceCamera.target.x);
-        m_screenSpaceCamera.target.y = std::round(m_screenSpaceCamera.target.y);
-
-        m_worldSpaceCamera.target.x = std::truncf(m_screenSpaceCamera.target.x);
-        m_screenSpaceCamera.target.x -= m_worldSpaceCamera.target.x;
-        m_screenSpaceCamera.target.x *= virtualRatio;
-
-        m_worldSpaceCamera.target.y = std::truncf(m_screenSpaceCamera.target.y);
-        m_screenSpaceCamera.target.y -= m_worldSpaceCamera.target.y;
-        m_screenSpaceCamera.target.y *= virtualRatio;
+        m_camera.target = player.GetPosition();
+        m_camera.target.x = std::round(m_camera.target.x);
+        m_camera.target.y = std::round(m_camera.target.y);
 
         {
             BeginTextureMode(m_renderTexture);
@@ -117,7 +106,7 @@ namespace sfa
 
             ClearBackground(RAYWHITE);
 
-            BeginMode2D(m_worldSpaceCamera);
+            BeginMode2D(m_camera);
             auto endMode2DGuard = gsl::finally(EndMode2D);
 
 
@@ -132,7 +121,6 @@ namespace sfa
 
             ClearBackground(RED);
 
-            BeginMode2D(m_screenSpaceCamera);
             DrawTexturePro(
                 m_renderTexture.texture,
                 m_sourceRec,

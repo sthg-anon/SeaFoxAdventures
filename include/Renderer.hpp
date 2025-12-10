@@ -40,11 +40,7 @@ namespace sfa
         std::int32_t m_screenWidth;
         std::int32_t m_screenHeight;
 
-        // Game world camera. Used when drawing things to the render texture.
-        Camera2D m_worldSpaceCamera;
-
-        // Smoothing camera. Used when drawing the render texture to the screen.
-        Camera2D m_screenSpaceCamera;
+        Camera2D m_camera;
 
         // The low-res render texture that the game is drawn to. This is a resource
         // managed by the Renderer and must be cleaned up.
