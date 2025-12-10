@@ -32,6 +32,7 @@ namespace
     static constexpr float Acceleration = 200.0f;
     static constexpr float MaxSpeed = 100.0f;
     static constexpr float Drag = 3.0f;
+    static constexpr float CollisionBoxTolerance = 3.0f;
 }
 
 namespace sfa
@@ -157,6 +158,6 @@ namespace sfa
 
     bool Player::CheckCollision(const World& world, float x, float y) const
     {
-        return RectHitsSolid(world, x, y, PlayerHalfSize, PlayerHalfSize);
+        return RectHitsSolid(world, x, y, PlayerHalfSize - CollisionBoxTolerance, PlayerHalfSize - CollisionBoxTolerance);
     }
 }
