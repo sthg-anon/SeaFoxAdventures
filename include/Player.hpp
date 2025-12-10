@@ -26,13 +26,8 @@ namespace sfa
 {
     class Player
     {
-        static constexpr float BaseSpeed = 32.f;
-
         // Player position
         Vector2 m_position;
-
-        // Player speed
-        float m_speed;
 
         // Where the player wants to face
         float m_targetRotation;
@@ -41,16 +36,14 @@ namespace sfa
         bool m_flipY;
 
         Vector2 m_velocity;
-        float m_acceleration;
-        float m_drag;
-        float m_maxSpeed;
 
     public:
         Player();
 
         void ProcessInputs();
-        Vector2 GetPosition() const;
-        float GetTargetRotation() const;
-        bool IsFlippedY() const;
+
+        Vector2 GetPosition() const { return m_position; }
+        float GetTargetRotation() const { return m_targetRotation; }
+        bool IsFlippedY() const { return m_flipY; }
     };
 }

@@ -24,17 +24,21 @@
 
 #include <raylib.h>
 
+namespace
+{
+    static constexpr float Acceleration = 200.0f;
+    static constexpr float MaxSpeed = 100.0f;
+    static constexpr float Drag = 3.0f;
+}
+
 namespace sfa
 {
+
     Player::Player()
         : m_position{ 0.f, 0.f }
-        , m_speed{ BaseSpeed }
         , m_targetRotation{ 0.0f }
         , m_flipY{ false }
         , m_velocity{ 0.f, 0.f }
-        , m_acceleration{ 200.0f }
-        , m_drag{ 3.0f }
-        , m_maxSpeed{ 100.0f }
     {
     }
 
@@ -98,39 +102,24 @@ namespace sfa
 
         if (length > 0.f)
         {
-            m_velocity.x += input.x * m_acceleration * deltaTime;
-            m_velocity.y += input.y * m_acceleration * deltaTime;
+            m_velocity.x += input.x * Acceleration * deltaTime;
+            m_velocity.y += input.y * Acceleration * deltaTime;
         }
         else
         {
-            m_velocity.x -= m_velocity.x * m_drag * deltaTime;
-            m_velocity.y -= m_velocity.y * m_drag * deltaTime;
+            m_velocity.x -= m_velocity.x * Drag * deltaTime;
+            m_velocity.y -= m_velocity.y * Drag * deltaTime;
         }
 
         float speed = std::hypot(m_velocity.x, m_velocity.y);
-        if (speed > m_maxSpeed)
+        if (speed > MaxSpeed)
         {
-            float scale = m_maxSpeed / speed;
+            float scale = MaxSpeed / speed;
             m_velocity.x *= scale;
             m_velocity.y *= scale;
         }
 
         m_position.x += m_velocity.x * deltaTime;
         m_position.y += m_velocity.y * deltaTime;
-    }
-
-    Vector2 Player::GetPosition() const
-    {
-        return m_position;
-    }
-
-    float Player::GetTargetRotation() const
-    {
-        return m_targetRotation;
-    }
-
-    bool Player::IsFlippedY() const
-    {
-        return m_flipY;
     }
 }
