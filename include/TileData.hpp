@@ -77,7 +77,7 @@ namespace sfa
         }
     };
 
-    constexpr const TileData& getTileData(TileType type)
+    constexpr const TileData& GetTileData(TileType type)
     {
         auto index = static_cast<std::uint8_t>(type);
         return g_tileData[index];

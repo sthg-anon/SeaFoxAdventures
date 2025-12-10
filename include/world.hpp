@@ -44,7 +44,9 @@ namespace sfa
         World(World&&) = default;
         World& operator=(World&&) = default;
 
-        TileType getTile(std::int32_t x, std::int32_t y) const;
-        void setTile(std::int32_t x, std::int32_t y, TileType type);
+        TileType GetTile(std::int32_t x, std::int32_t y) const;
+        void SetTile(std::int32_t x, std::int32_t y, TileType type);
+
+        bool IsTileSolidAt(std::int32_t x, std::int32_t y) const;
     };
 }

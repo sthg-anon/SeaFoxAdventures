@@ -43,7 +43,7 @@ namespace sfa
         {
             for (std::int32_t y = 0; y < SkyHeight; ++y)
             {
-                world.setTile(x, y, TileType::Sky);
+                world.SetTile(x, y, TileType::Sky);
             }
         }
 
@@ -51,7 +51,7 @@ namespace sfa
         auto waterSurfaceY = SkyHeight;
         for (std::int32_t x = 0; x < WorldWidth; ++x)
         {
-            world.setTile(x, waterSurfaceY, TileType::WaterSurface);
+            world.SetTile(x, waterSurfaceY, TileType::WaterSurface);
         }
 
         /* Water */
@@ -59,7 +59,7 @@ namespace sfa
         {
             for (std::int32_t y = waterSurfaceY + 1; y < waterSurfaceY + WaterDepth; ++y)
             {
-                world.setTile(x, y, TileType::UnderWater);
+                world.SetTile(x, y, TileType::UnderWater);
             }
         }
 
@@ -71,7 +71,7 @@ namespace sfa
                 auto r = dist(gen);
                 if (r < 0.9f)
                 {
-                    world.setTile(x, y, TileType::Earth);
+                    world.SetTile(x, y, TileType::Earth);
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace sfa
                 auto r = dist(gen);
                 if (r < 0.05f)
                 {
-                    world.setTile(x, y, TileType::IronOre);
+                    world.SetTile(x, y, TileType::IronOre);
                 }
             }
         }

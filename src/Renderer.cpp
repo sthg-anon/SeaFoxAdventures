@@ -150,8 +150,8 @@ namespace sfa
         {
             for (std::int32_t x = 0; x < WorldWidth; ++x)
             {
-                const TileType tileType = world.getTile(x, y);
-                const auto tileData = getTileData(tileType);
+                const TileType tileType = world.GetTile(x, y);
+                const auto tileData = GetTileData(tileType);
                 DrawTexturePro(
                     m_tilesTexture,
                     Rectangle{
