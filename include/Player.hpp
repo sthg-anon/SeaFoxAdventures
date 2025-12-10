@@ -27,18 +27,18 @@ namespace sfa
     class Player
     {
         // Player position
-        Vector2 m_position;
+        Vector2 m_position{ 0.f, 0.f };
 
         // Where the player wants to face
-        float m_targetRotation;
+        float m_targetRotation{ 0.0f };
 
         // Whether or not the sprite needs to be flipped on the y axis.
-        bool m_flipY;
+        bool m_flipY{ false };
 
-        Vector2 m_velocity;
+        Vector2 m_velocity{ 0.0f, 0.0f };
 
     public:
-        Player();
+        Player() = default;
 
         void ProcessInputs();
 

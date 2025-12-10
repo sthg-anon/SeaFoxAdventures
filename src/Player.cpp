@@ -33,20 +33,11 @@ namespace
 
 namespace sfa
 {
-
-    Player::Player()
-        : m_position{ 0.f, 0.f }
-        , m_targetRotation{ 0.0f }
-        , m_flipY{ false }
-        , m_velocity{ 0.f, 0.f }
-    {
-    }
-
     void Player::ProcessInputs()
     {
         float deltaTime = GetFrameTime();
 
-        Vector2 input = { 0.f, 0.f };
+        Vector2 input{ 0.f, 0.f };
         if (IsKeyDown(KEY_W))
         {
             input.y -= 1.f;
