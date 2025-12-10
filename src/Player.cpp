@@ -31,6 +31,10 @@ namespace sfa
         , m_speed{ BaseSpeed }
         , m_targetRotation{ 0.0f }
         , m_flipY{ false }
+        , m_velocity{ 0.f, 0.f }
+        , m_acceleration{ 200.0f }
+        , m_drag{ 3.0f }
+        , m_maxSpeed{ 100.0f }
     {
     }
 
@@ -38,29 +42,29 @@ namespace sfa
     {
         float deltaTime = GetFrameTime();
 
-        Vector2 movement = { 0.f, 0.f };
+        Vector2 input = { 0.f, 0.f };
         if (IsKeyDown(KEY_W))
         {
-            movement.y -= 1.f;
+            input.y -= 1.f;
         }
         if (IsKeyDown(KEY_S))
         {
-            movement.y += 1.f;
+            input.y += 1.f;
         }
         if (IsKeyDown(KEY_A))
         {
-            movement.x -= 1.f;
+            input.x -= 1.f;
             m_flipY = true;
         }
         if (IsKeyDown(KEY_D))
         {
-            movement.x += 1.f;
+            input.x += 1.f;
             m_flipY = false;
         }
 
-        if (std::abs(movement.x) > 0.f || std::abs(movement.y) > 0.f)
+        if (std::abs(input.x) > 0.f || std::abs(input.y) > 0.f)
         {
-            float angleRad = std::atan2(movement.y, movement.x);
+            float angleRad = std::atan2(input.y, input.x);
             float angleDeg = angleRad * 180.f / PI;
             if (angleDeg < 0.f)
             {
@@ -85,19 +89,34 @@ namespace sfa
             }
         }
 
-        //float length = std::hypot(movement.x, movement.y);
+        float length = std::hypot(input.x, input.y);
+        if (length > 0.0001f)
+        {
+            input.x /= length;
+            input.y /= length;
+        }
 
-        //if (length > 0.0001f)
-        //{
-        //    movement.x /= length;
-        //    movement.y /= length;
-        //}
+        if (length > 0.f)
+        {
+            m_velocity.x += input.x * m_acceleration * deltaTime;
+            m_velocity.y += input.y * m_acceleration * deltaTime;
+        }
+        else
+        {
+            m_velocity.x -= m_velocity.x * m_drag * deltaTime;
+            m_velocity.y -= m_velocity.y * m_drag * deltaTime;
+        }
 
-        float diff_x = movement.x * m_speed * deltaTime;
-        float diff_y = movement.y * m_speed * deltaTime;
+        float speed = std::hypot(m_velocity.x, m_velocity.y);
+        if (speed > m_maxSpeed)
+        {
+            float scale = m_maxSpeed / speed;
+            m_velocity.x *= scale;
+            m_velocity.y *= scale;
+        }
 
-        m_position.x += diff_x;
-        m_position.y += diff_y;
+        m_position.x += m_velocity.x * deltaTime;
+        m_position.y += m_velocity.y * deltaTime;
     }
 
     Vector2 Player::GetPosition() const

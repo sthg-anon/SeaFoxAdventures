@@ -40,6 +40,11 @@ namespace sfa
         // Whether or not the sprite needs to be flipped on the y axis.
         bool m_flipY;
 
+        Vector2 m_velocity;
+        float m_acceleration;
+        float m_drag;
+        float m_maxSpeed;
+
     public:
         Player();
 
