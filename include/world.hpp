@@ -46,10 +46,10 @@ namespace sfa
         World(World&&) = default;
         World& operator=(World&&) = default;
 
-        TileType GetTile(TileCoord x, TileCoord y) const;
-        void SetTile(TileCoord x, TileCoord y, TileType type);
+        TileType GetTile(TilePosition pos) const;
+        void SetTile(TilePosition pos, TileType type);
 
-        bool IsTileSolidAt(TileCoord x, TileCoord y) const;
+        bool IsTileSolidAt(TilePosition pos) const;
 
         static TileCoord PixelToTileCoord(PixelCoord worldPos)
         {

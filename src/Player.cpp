@@ -170,9 +170,11 @@ namespace sfa
         auto tileX = World::PixelToTileCoord(PixelCoord{ collisionX });
         auto tileY = World::PixelToTileCoord(PixelCoord{ collisionY });
 
-        if (world.IsTileSolidAt(tileX, tileY))
+        auto pos = TilePosition{ tileX, tileY };
+
+        if (world.IsTileSolidAt(pos))
         {
-            world.SetTile(tileX, tileY, TileType::UnderWater);
+            world.SetTile(pos, TileType::UnderWater);
         }
     }
 }

@@ -23,6 +23,7 @@
 #include <cmath>
 
 #include "Coordinate.hpp"
+#include "TileRange.hpp"
 #include "World.hpp"
 
 namespace sfa
@@ -34,19 +35,16 @@ namespace sfa
         float top = centerY - halfHeight;
         float bottom = centerY + halfHeight;
 
-        auto minX = static_cast<std::int32_t>(std::floor(left) / WorldTileSizePixels);
-        auto maxX = static_cast<std::int32_t>(std::floor(right) / WorldTileSizePixels);
-        auto minY = static_cast<std::int32_t>(std::floor(top) / WorldTileSizePixels);
-        auto maxY = static_cast<std::int32_t>(std::floor(bottom) / WorldTileSizePixels);
+        auto minX = World::PixelToTileCoord(PixelCoord{ left });
+        auto maxX = World::PixelToTileCoord(PixelCoord{ right });
+        auto minY = World::PixelToTileCoord(PixelCoord{ top });
+        auto maxY = World::PixelToTileCoord(PixelCoord{ bottom });
 
-        for (std::int32_t y = minY; y <= maxY; ++y)
+        for (const auto& pos : TileRange(minX, minY, maxX, maxY))
         {
-            for (std::int32_t x = minX; x <= maxX; ++x)
+            if (world.IsTileSolidAt(pos))
             {
-                if (world.IsTileSolidAt(TileCoord{ x }, TileCoord{ y }))
-                {
-                    return true;
-                }
+                return true;
             }
         }
 

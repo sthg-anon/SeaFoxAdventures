@@ -30,6 +30,7 @@
 #include "assets/sprites/Player.hpp"
 #include "Coordinate.hpp"
 #include "Player.hpp"
+#include "TileRange.hpp"
 #include "World.hpp"
 #include "TileData.hpp"
 
@@ -137,30 +138,27 @@ namespace sfa
 
     void Renderer::DrawWorld(World& world)
     {
-        for (std::int32_t y = 0; y < WorldHeight; ++y)
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
         {
-            for (std::int32_t x = 0; x < WorldWidth; ++x)
-            {
-                const TileType tileType = world.GetTile(TileCoord{ x }, TileCoord{ y });
-                const auto tileData = GetTileData(tileType);
-                DrawTexturePro(
-                    m_tilesTexture,
-                    Rectangle{
-                        static_cast<float>(tileData.texture_x * WorldTileSizePixels),
-                        static_cast<float>(tileData.texture_y * WorldTileSizePixels),
-                        WorldTileSizePixels,
-                        WorldTileSizePixels
-                    },
-                    Rectangle{
-                        static_cast<float>(x * WorldTileSizePixels),
-                        static_cast<float>(y * WorldTileSizePixels),
-                        WorldTileSizePixels,
-                        WorldTileSizePixels
-                    },
-                    Vector2{ 0.0f, 0.0f },
-                    0.0f,
-                    WHITE);
-            }
+            const TileType tileType = world.GetTile(pos);
+            const auto tileData = GetTileData(tileType);
+            DrawTexturePro(
+                m_tilesTexture,
+                Rectangle{
+                    static_cast<float>(tileData.texture_x * WorldTileSizePixels),
+                    static_cast<float>(tileData.texture_y * WorldTileSizePixels),
+                    WorldTileSizePixels,
+                    WorldTileSizePixels
+                },
+                Rectangle{
+                    static_cast<float>(pos.x.Get() * WorldTileSizePixels),
+                    static_cast<float>(pos.y.Get() * WorldTileSizePixels),
+                    WorldTileSizePixels,
+                    WorldTileSizePixels
+                },
+                Vector2{ 0.0f, 0.0f },
+                0.0f,
+                WHITE);
         }
     }
 

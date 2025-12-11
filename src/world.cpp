@@ -31,28 +31,28 @@ namespace sfa
         m_tiles.fill(TileType::UnderWater);
     }
 
-    TileType World::GetTile(TileCoord x, TileCoord y) const
+    TileType World::GetTile(TilePosition pos) const
     {
-        Expects(x.Get() >= 0 && x.Get() < WorldWidth);
-        Expects(y.Get() >= 0 && y.Get() < WorldHeight);
-        return m_tiles[y.Get() * WorldWidth + x.Get()];
+        Expects(pos.x.Get() >= 0 && pos.x.Get() < WorldWidth);
+        Expects(pos.y.Get() >= 0 && pos.y.Get() < WorldHeight);
+        return m_tiles[pos.y.Get() * WorldWidth + pos.x.Get()];
     }
 
-    void World::SetTile(TileCoord x, TileCoord y, TileType type)
+    void World::SetTile(TilePosition pos, TileType type)
     {
-        Expects(x.Get() >= 0 && x.Get() < WorldWidth);
-        Expects(y.Get() >= 0 && y.Get() < WorldHeight);
-        m_tiles[y.Get() * WorldWidth + x.Get()] = type;
+        Expects(pos.x.Get() >= 0 && pos.x.Get() < WorldWidth);
+        Expects(pos.y.Get() >= 0 && pos.y.Get() < WorldHeight);
+        m_tiles[pos.y.Get() * WorldWidth + pos.x.Get()] = type;
     }
 
-    bool World::IsTileSolidAt(TileCoord tileX, TileCoord tileY) const
+    bool World::IsTileSolidAt(TilePosition pos) const
     {
-        if (tileX.Get() < 0 || tileY.Get() < 0 || tileX.Get() >= WorldWidth || tileY.Get() >= WorldHeight)
+        if (pos.x.Get() < 0 || pos.y.Get() < 0 || pos.x.Get() >= WorldWidth || pos.y.Get() >= WorldHeight)
         {
             return true;
         }
 
-        TileType type = GetTile(tileX, tileY);
+        TileType type = GetTile(pos);
         return GetTileData(type).isSolid;
     }
 }

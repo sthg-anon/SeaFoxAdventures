@@ -47,4 +47,10 @@ namespace sfa
 
     using PixelCoord = Coordinate<float, PixelTag>;
     using TileCoord = Coordinate<std::int32_t, TileTag>;
+
+    struct TilePosition
+    {
+        TileCoord x;
+        TileCoord y;
+    };
 }

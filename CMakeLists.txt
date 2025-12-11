@@ -27,6 +27,7 @@ set(SFA_SOURCE_FILES
     include/Player.hpp
     include/Renderer.hpp
     include/TileData.hpp
+    include/TileRange.hpp
     include/TileType.hpp
     include/World.hpp
     include/WorldCollision.hpp

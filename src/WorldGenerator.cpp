@@ -24,6 +24,7 @@
 #include <random>
 
 #include "Coordinate.hpp"
+#include "TileRange.hpp"
 #include "World.hpp"
 
 namespace sfa
@@ -40,55 +41,42 @@ namespace sfa
         std::uniform_real_distribution<float> dist(0.0f, 1.0f);
 
         /* Sky */
-        for (std::int32_t x = 0; x < WorldWidth; ++x)
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ WorldWidth }, TileCoord{ SkyHeight }))
         {
-            for (std::int32_t y = 0; y < SkyHeight; ++y)
-            {
-                world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::Sky);
-            }
+            world.SetTile(pos, TileType::Sky);
         }
 
         /* Water surface */
         auto waterSurfaceY = SkyHeight;
         for (std::int32_t x = 0; x < WorldWidth; ++x)
         {
-            world.SetTile(TileCoord{ x }, TileCoord{ waterSurfaceY }, TileType::WaterSurface);
+            world.SetTile(TilePosition{ TileCoord{ x }, TileCoord{ waterSurfaceY } }, TileType::WaterSurface);
         }
 
         /* Water */
-        for (std::int32_t x = 0; x < WorldWidth; ++x)
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + 1 }, TileCoord{ WorldWidth }, TileCoord{ waterSurfaceY + WaterDepth }))
         {
-            for (std::int32_t y = waterSurfaceY + 1; y < waterSurfaceY + WaterDepth; ++y)
-            {
-                world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::UnderWater);
-            }
+            world.SetTile(pos, TileType::UnderWater);
         }
 
         /* Underground */
-        for (std::int32_t x = 0; x < WorldWidth; ++x)
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + WaterDepth + 1 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
         {
-            for (std::int32_t y = waterSurfaceY + WaterDepth + 1; y < WorldHeight; ++y)
+            auto r = dist(gen);
+            if (r < 0.8f)
             {
-                auto r = dist(gen);
-                if (r < 0.8f)
-                {
-                    world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::Earth);
-                }
+                world.SetTile(pos, TileType::Earth);
             }
         }
 
         /* Iron ore */
-        for (std::int32_t x = 0; x < WorldWidth; ++x)
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + WaterDepth + 1 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
         {
-            for (std::int32_t y = waterSurfaceY + WaterDepth + 1; y < WorldHeight; ++y)
+            auto r = dist(gen);
+            if (r < 0.05f)
             {
-                auto r = dist(gen);
-                if (r < 0.05f)
-                {
-                    world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::IronOre);
-                }
+                world.SetTile(pos, TileType::IronOre);
             }
         }
-
     }
 }
