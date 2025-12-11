@@ -42,12 +42,13 @@ namespace sfa
         Vector2 m_velocity{ 0.0f, 0.0f };
         
         bool CheckCollision(const World& world, float x, float y) const;
+        void TryBreakTile(World& world, float x, float y, float velX, float velY);
 
     public:
         Player() = default;
 
         void ProcessInputs();
-        void MoveWithCollision(const World& world);
+        void MoveWithCollision(World& world);
 
         Vector2 GetPosition() const { return m_position; }
         float GetTargetRotation() const { return m_targetRotation; }

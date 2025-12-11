@@ -114,12 +114,9 @@ namespace sfa
             m_velocity.x *= scale;
             m_velocity.y *= scale;
         }
-
-        //m_position.x += m_velocity.x * deltaTime;
-        //m_position.y += m_velocity.y * deltaTime;
     }
 
-    void Player::MoveWithCollision(const World& world)
+    void Player::MoveWithCollision(World& world)
     {
         float deltaTime = GetFrameTime();
 
@@ -135,6 +132,7 @@ namespace sfa
             }
             else
             {
+                TryBreakTile(world, testX, newPos.y, m_velocity.x, 0.0f);
                 m_velocity.x = 0.0f;
             }
         }
@@ -149,6 +147,7 @@ namespace sfa
             }
             else
             {
+                TryBreakTile(world, newPos.x, testY, 0.0f, m_velocity.y);
                 m_velocity.y = 0.0f;
             }
         }
@@ -159,5 +158,21 @@ namespace sfa
     bool Player::CheckCollision(const World& world, float x, float y) const
     {
         return RectHitsSolid(world, x, y, PlayerHalfSize - CollisionBoxTolerance, PlayerHalfSize - CollisionBoxTolerance);
+    }
+
+    void Player::TryBreakTile(World& world, float x, float y, float velX, float velY)
+    {
+        auto halfPlayer = PlayerHalfSize - CollisionBoxTolerance;
+
+        float collisionX = x + (velX > 0 ? halfPlayer : -halfPlayer);
+        float collisionY = y + (velY > 0 ? halfPlayer : -halfPlayer);
+
+        auto tileX = static_cast<std::int32_t>(std::floor(collisionX / WorldTileSizePixels));
+        auto tileY = static_cast<std::int32_t>(std::floor(collisionY / WorldTileSizePixels));
+
+        if (world.IsTileSolidAt(tileX, tileY))
+        {
+            world.SetTile(tileX, tileY, TileType::UnderWater);
+        }
     }
 }
