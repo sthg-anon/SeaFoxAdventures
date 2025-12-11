@@ -193,6 +193,7 @@ namespace sfa
 
         float flipY = player.IsFlippedY() ? -1.0f : 1.0f;
 
+        // Sea Fox Subarmine Sprite
         DrawTexturePro(
             m_playerTexture,
             Rectangle{
@@ -208,6 +209,25 @@ namespace sfa
                 WorldTileSizePixels
             },
             Vector2{ PlayerHalfSize, PlayerHalfSize },
+            m_currentPlayerRotation,
+            WHITE);
+
+        // Drill
+        DrawTexturePro(
+            m_playerTexture,
+            Rectangle{
+                16,
+                0,
+                WorldTileSizePixels,
+                flipY * WorldTileSizePixels
+            },
+            Rectangle{
+                player.GetPosition().x,
+                player.GetPosition().y,
+                WorldTileSizePixels,
+                WorldTileSizePixels
+            },
+            Vector2{ PlayerHalfSize - WorldTileSizePixels, PlayerHalfSize },
             m_currentPlayerRotation,
             WHITE);
     }
