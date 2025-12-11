@@ -23,6 +23,7 @@
 #include <cstdint>
 #include <random>
 
+#include "Coordinate.hpp"
 #include "World.hpp"
 
 namespace sfa
@@ -43,7 +44,7 @@ namespace sfa
         {
             for (std::int32_t y = 0; y < SkyHeight; ++y)
             {
-                world.SetTile(x, y, TileType::Sky);
+                world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::Sky);
             }
         }
 
@@ -51,7 +52,7 @@ namespace sfa
         auto waterSurfaceY = SkyHeight;
         for (std::int32_t x = 0; x < WorldWidth; ++x)
         {
-            world.SetTile(x, waterSurfaceY, TileType::WaterSurface);
+            world.SetTile(TileCoord{ x }, TileCoord{ waterSurfaceY }, TileType::WaterSurface);
         }
 
         /* Water */
@@ -59,7 +60,7 @@ namespace sfa
         {
             for (std::int32_t y = waterSurfaceY + 1; y < waterSurfaceY + WaterDepth; ++y)
             {
-                world.SetTile(x, y, TileType::UnderWater);
+                world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::UnderWater);
             }
         }
 
@@ -71,7 +72,7 @@ namespace sfa
                 auto r = dist(gen);
                 if (r < 0.8f)
                 {
-                    world.SetTile(x, y, TileType::Earth);
+                    world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::Earth);
                 }
             }
         }
@@ -84,7 +85,7 @@ namespace sfa
                 auto r = dist(gen);
                 if (r < 0.05f)
                 {
-                    world.SetTile(x, y, TileType::IronOre);
+                    world.SetTile(TileCoord{ x }, TileCoord{ y }, TileType::IronOre);
                 }
             }
         }

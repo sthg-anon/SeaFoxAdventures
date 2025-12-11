@@ -167,8 +167,8 @@ namespace sfa
         float collisionX = x + (velX > 0 ? halfPlayer : -halfPlayer);
         float collisionY = y + (velY > 0 ? halfPlayer : -halfPlayer);
 
-        auto tileX = static_cast<std::int32_t>(std::floor(collisionX / WorldTileSizePixels));
-        auto tileY = static_cast<std::int32_t>(std::floor(collisionY / WorldTileSizePixels));
+        auto tileX = World::PixelToTileCoord(PixelCoord{ collisionX });
+        auto tileY = World::PixelToTileCoord(PixelCoord{ collisionY });
 
         if (world.IsTileSolidAt(tileX, tileY))
         {

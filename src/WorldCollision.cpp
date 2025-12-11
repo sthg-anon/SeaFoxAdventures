@@ -22,6 +22,7 @@
 
 #include <cmath>
 
+#include "Coordinate.hpp"
 #include "World.hpp"
 
 namespace sfa
@@ -42,7 +43,7 @@ namespace sfa
         {
             for (std::int32_t x = minX; x <= maxX; ++x)
             {
-                if (world.IsTileSolidAt(x, y))
+                if (world.IsTileSolidAt(TileCoord{ x }, TileCoord{ y }))
                 {
                     return true;
                 }

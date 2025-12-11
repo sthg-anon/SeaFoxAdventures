@@ -20,40 +20,31 @@
 
 #pragma once
 
-#include <array>
-#include <cmath>
 #include <cstdint>
-
-#include "Coordinate.hpp"
-#include "TileType.hpp"
 
 namespace sfa
 {
-    constexpr std::int32_t WorldWidth = 64;
-    constexpr std::int32_t WorldHeight = 1024;
-    constexpr std::int32_t SkyHeight = 10;
+    struct PixelTag {};
+    struct TileTag {};
 
-    constexpr std::int32_t WorldTileSizePixels = 16;
-
-    class World
+    template<typename T, typename Tag>
+    struct Coordinate
     {
-        std::array<TileType, WorldWidth * WorldHeight> m_tiles;
+        T value;
 
-    public:
-        World();
-        World(const World&) = delete;
-        World& operator=(const World&) = delete;
-        World(World&&) = default;
-        World& operator=(World&&) = default;
+        explicit Coordinate(T val) : value(val) {}
 
-        TileType GetTile(TileCoord x, TileCoord y) const;
-        void SetTile(TileCoord x, TileCoord y, TileType type);
-
-        bool IsTileSolidAt(TileCoord x, TileCoord y) const;
-
-        static TileCoord PixelToTileCoord(PixelCoord worldPos)
+        Coordinate operator+(const Coordinate& other) const
         {
-            return TileCoord{ static_cast<std::int32_t>(std::floor(worldPos.Get() / WorldTileSizePixels)) };
+            return Coordinate(value + other.value);
+        }
+
+        T Get() const
+        {
+            return value;
         }
     };
+
+    using PixelCoord = Coordinate<float, PixelTag>;
+    using TileCoord = Coordinate<std::int32_t, TileTag>;
 }

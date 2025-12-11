@@ -22,8 +22,6 @@
 
 #include <gsl/assert>
 
-#include <cstdint>
-
 #include "TileData.hpp"
 
 namespace sfa
@@ -33,23 +31,23 @@ namespace sfa
         m_tiles.fill(TileType::UnderWater);
     }
 
-    TileType World::GetTile(std::int32_t x, std::int32_t y) const
+    TileType World::GetTile(TileCoord x, TileCoord y) const
     {
-        Expects(x >= 0 && x < WorldWidth);
-        Expects(y >= 0 && y < WorldHeight);
-        return m_tiles[y * WorldWidth + x];
+        Expects(x.Get() >= 0 && x.Get() < WorldWidth);
+        Expects(y.Get() >= 0 && y.Get() < WorldHeight);
+        return m_tiles[y.Get() * WorldWidth + x.Get()];
     }
 
-    void World::SetTile(std::int32_t x, std::int32_t y, TileType type)
+    void World::SetTile(TileCoord x, TileCoord y, TileType type)
     {
-        Expects(x >= 0 && x < WorldWidth);
-        Expects(y >= 0 && y < WorldHeight);
-        m_tiles[y * WorldWidth + x] = type;
+        Expects(x.Get() >= 0 && x.Get() < WorldWidth);
+        Expects(y.Get() >= 0 && y.Get() < WorldHeight);
+        m_tiles[y.Get() * WorldWidth + x.Get()] = type;
     }
 
-    bool World::IsTileSolidAt(std::int32_t tileX, std::int32_t tileY) const
+    bool World::IsTileSolidAt(TileCoord tileX, TileCoord tileY) const
     {
-        if (tileX < 0 || tileY < 0 || tileX >= WorldWidth || tileY >= WorldHeight)
+        if (tileX.Get() < 0 || tileY.Get() < 0 || tileX.Get() >= WorldWidth || tileY.Get() >= WorldHeight)
         {
             return true;
         }

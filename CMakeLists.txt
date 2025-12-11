@@ -23,6 +23,7 @@ set(SFA_SOURCE_FILES
 
     include/assets/sprites/Player.hpp
     include/assets/sprites/Tiles.hpp
+    include/Coordinate.hpp
     include/Player.hpp
     include/Renderer.hpp
     include/TileData.hpp
