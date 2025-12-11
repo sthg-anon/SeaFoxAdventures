@@ -40,7 +40,7 @@ namespace sfa
         auto minY = World::PixelToTileCoord(PixelCoord{ top });
         auto maxY = World::PixelToTileCoord(PixelCoord{ bottom });
 
-        for (const auto& pos : TileRange(minX, minY, maxX, maxY))
+        for (const auto& pos : TileRange(minX, minY, maxX + TileCoord{ 1 }, maxY + TileCoord{ 1 }))
         {
             if (world.IsTileSolidAt(pos))
             {
