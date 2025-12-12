@@ -172,7 +172,7 @@ namespace sfa
 
         auto pos = TilePosition{ tileX, tileY };
 
-        if (world.IsTileSolidAt(pos))
+        if (world.IsTileSolidAt(pos) && World::IsInBounds(pos))
         {
             world.SetTile(pos, TileType::UnderWater);
         }
