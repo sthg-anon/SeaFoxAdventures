@@ -141,7 +141,7 @@ namespace sfa
 
             rlImGuiBegin();
             auto rlImGuiEndGuard = gsl::finally(rlImGuiEnd);
-            DrawDebugWindow(world, player);
+            m_debugWindow.Draw(world, player);
         }
     }
 

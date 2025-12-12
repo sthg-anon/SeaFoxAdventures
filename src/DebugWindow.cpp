@@ -21,11 +21,20 @@
 #include "DebugWindow.hpp"
 
 #include <imgui.h>
+#include <raylib.h>
 
 namespace sfa
 {
-    void DrawDebugWindow(World& world, Player& player)
+    void DebugWindow::Draw(World& world, Player& player)
     {
-        ImGui::ShowDemoWindow();
+        if (IsKeyPressed(KEY_GRAVE))
+        {
+            m_showDebugWindow = !m_showDebugWindow;
+        }
+
+        if (m_showDebugWindow)
+        {
+            ImGui::ShowDemoWindow(&m_showDebugWindow);
+        }
     }
 }

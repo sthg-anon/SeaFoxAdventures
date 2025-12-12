@@ -24,6 +24,7 @@
 
 #include <raylib.h>
 
+#include "DebugWindow.hpp"
 #include "Player.hpp"
 #include "world.hpp"
 
@@ -59,6 +60,8 @@ namespace sfa
 
         // The player's current rotation. Used for linear interpolation.
         float m_currentPlayerRotation;
+
+        DebugWindow m_debugWindow;
 
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);

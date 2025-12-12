@@ -25,5 +25,11 @@ namespace sfa
     class World;
     class Player;
 
-    void DrawDebugWindow(World& world, Player& player);
+    class DebugWindow
+    {
+        bool m_showDebugWindow{ false };
+
+        public:
+            void Draw(World& world, Player& player);
+    };
 }
