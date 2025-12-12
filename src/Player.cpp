@@ -191,6 +191,11 @@ namespace sfa
 
     bool Player::IsMovingInCardinalDirection() const
     {
+        if (m_velocity.x < 0.001 && m_velocity.y < 0.001)
+        {
+            return false;
+        }
+
         auto absVelX = std::abs(m_velocity.x);
         auto absVelY = std::abs(m_velocity.y);
         auto maxVel = std::max(absVelX, absVelY);
