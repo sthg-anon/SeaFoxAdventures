@@ -253,12 +253,14 @@ namespace sfa
         auto magnitude = std::max(std::abs(dx), std::abs(dy));
         m_drillProgress -= magnitude;
 
+        float drillProgressRatio = 1.0f - (m_drillProgress / (WorldTileSizePixels - CollisionBoxTolerance - 1.0f));
+
         if (absDx > 0.5f)
         {
             // We're moving along the x axis
             auto worldY = World::PixelToTileCoord(PixelCoord{ m_position.y });
-            auto pixelY = World::TileToPixelCoord(worldY).Get();
-            m_position.y = pixelY;
+            auto targetPixelY = World::TileToPixelCoord(worldY).Get();
+            m_position.y = position.y + (targetPixelY - position.y) * drillProgressRatio;
         }
         else
         {
@@ -267,8 +269,8 @@ namespace sfa
             // on the y axis.
 
             auto worldX = World::PixelToTileCoord(PixelCoord{ m_position.x });
-            auto pixelX = World::TileToPixelCoord(worldX).Get();
-            m_position.x = pixelX;
+            auto targetPixelX = World::TileToPixelCoord(worldX).Get();
+            m_position.x = position.x + (targetPixelX - position.x) * drillProgressRatio;
         }
 
         if (m_drillProgress <= 0.0f)
