@@ -22,6 +22,7 @@
 
 #include <cmath>
 
+#include <gsl/assert>
 #include <raylib.h>
 
 #include "WorldCollision.hpp"
@@ -45,6 +46,11 @@ namespace sfa
 {
     void Player::ProcessInputs()
     {
+        if (m_isDrilling)
+        {
+            return;
+        }
+
         float deltaTime = GetFrameTime();
 
         Vector2 input{ 0.f, 0.f };
@@ -126,6 +132,12 @@ namespace sfa
     {
         float deltaTime = GetFrameTime();
 
+        if (m_isDrilling)
+        {
+            PullPlayerThoughTile(world);
+            return;
+        }
+
         Vector2 newPos = m_position;
 
         float dx = m_velocity.x * deltaTime;
@@ -138,8 +150,11 @@ namespace sfa
             }
             else
             {
-                TryBreakTile(world, testX, newPos.y);
-                m_velocity.x = 0.0f;
+                auto isDrillingStarted = TryBreakTile(world, testX, newPos.y);
+                if (!isDrillingStarted)
+                {
+                    m_velocity.x = 0.0f;
+                }
             }
         }
 
@@ -153,8 +168,11 @@ namespace sfa
             }
             else
             {
-                TryBreakTile(world, newPos.x, testY);
-                m_velocity.y = 0.0f;
+                auto isDrillingStarted = TryBreakTile(world, newPos.x, testY);
+                if (!isDrillingStarted)
+                {
+                    m_velocity.y = 0.0f;
+                }
             }
         }
 
@@ -166,11 +184,11 @@ namespace sfa
         return RectHitsSolid(world, x, y, PlayerHalfSize - CollisionBoxTolerance, PlayerHalfSize - CollisionBoxTolerance);
     }
 
-    void Player::TryBreakTile(World& world, float x, float y)
+    bool Player::TryBreakTile(World& world, float x, float y)
     {
         if (!IsMovingInCardinalDirection())
         {
-            return;
+            return false;
         }
 
         auto halfPlayer = PlayerHalfSize - CollisionBoxTolerance;
@@ -185,8 +203,11 @@ namespace sfa
 
         if (world.IsTileSolidAt(pos) && World::IsInBounds(pos))
         {
-            world.SetTile(pos, TileType::UnderWater);
+            DrillTile(world, pos);
+            return true;
         }
+
+        return false;
     }
 
     bool Player::IsMovingInCardinalDirection() const
@@ -204,5 +225,64 @@ namespace sfa
         auto cardinalRatio = minVel / maxVel;
 
         return cardinalRatio < CardinalDirectionTolerance;
+    }
+
+    void Player::DrillTile(World& world, TilePosition pos)
+    {
+        m_isDrilling = true;
+        m_drillProgress = WorldTileSizePixels - CollisionBoxTolerance - 1.0f;
+    }
+
+    void Player::PullPlayerThoughTile(World& world)
+    {
+        auto absDx = std::abs(m_velocity.x);
+        auto absDy = std::abs(m_velocity.y);
+
+        Expects(absDx > 0 || absDy > 0);
+
+        auto deltaTime = GetFrameTime();
+        auto position = m_position;
+
+        float dx = m_velocity.x * deltaTime;
+        float dy = m_velocity.y * deltaTime;
+
+        m_position.x += dx;
+        m_position.y += dy;
+
+        // This is ok to do because we only drill in cardinal directions.
+        auto magnitude = std::max(std::abs(dx), std::abs(dy));
+        m_drillProgress -= magnitude;
+
+        if (absDx > 0.5f)
+        {
+            // We're moving along the x axis
+            auto worldY = World::PixelToTileCoord(PixelCoord{ m_position.y });
+            auto pixelY = World::TileToPixelCoord(worldY).Get();
+            m_position.y = pixelY;
+        }
+        else
+        {
+            // Because we're moving in a cardinal direction and velocity needs to be > 0,
+            // we can assume that if we're not moving on the x axis then we must be moving
+            // on the y axis.
+
+            auto worldX = World::PixelToTileCoord(PixelCoord{ m_position.x });
+            auto pixelX = World::TileToPixelCoord(worldX).Get();
+            m_position.x = pixelX;
+        }
+
+        if (m_drillProgress <= 0.0f)
+        {
+            m_isDrilling = false;
+            m_velocity.x = 0.0f;
+            m_velocity.y = 0.0f;
+
+            auto tileX = World::PixelToTileCoord(PixelCoord{ m_position.x });
+            auto tileY = World::PixelToTileCoord(PixelCoord{ m_position.y });
+
+            auto pos = TilePosition{ tileX, tileY };
+
+            world.SetTile(pos, TileType::UnderWater);
+        }
     }
 }

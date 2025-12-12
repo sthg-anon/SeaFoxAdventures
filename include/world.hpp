@@ -56,6 +56,11 @@ namespace sfa
             return TileCoord{ static_cast<std::int32_t>(std::floor(worldPos.Get() / WorldTileSizePixels)) };
         }
 
+        static PixelCoord TileToPixelCoord(TileCoord pixelPos)
+        {
+            return PixelCoord{ (pixelPos.Get() * WorldTileSizePixels) + 8.0f };
+        }
+
         static bool IsInBounds(TilePosition pos)
         {
             return pos.x.Get() >= 0 && pos.x.Get() < WorldWidth &&

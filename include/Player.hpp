@@ -22,6 +22,8 @@
 
 #include <raylib.h>
 
+#include "Coordinate.hpp"
+
 namespace sfa
 {
     class World;
@@ -40,17 +42,22 @@ namespace sfa
         bool m_flipY{ false };
 
         Vector2 m_velocity{ 0.0f, 0.0f };
+
+        bool m_isDrilling{ false };
+
+        float m_drillProgress{ 0.0f };
         
         bool CheckCollision(const World& world, float x, float y) const;
-        void TryBreakTile(World& world, float x, float y);
+        bool TryBreakTile(World& world, float x, float y);
+        bool IsMovingInCardinalDirection() const;
+        void DrillTile(World& world, TilePosition pos);
+        void PullPlayerThoughTile(World& world);
 
     public:
         Player() = default;
 
         void ProcessInputs();
         void MoveWithCollision(World& world);
-
-        bool IsMovingInCardinalDirection() const;
 
         Vector2 GetPosition() const { return m_position; }
         float GetTargetRotation() const { return m_targetRotation; }
