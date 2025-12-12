@@ -20,21 +20,54 @@
 
 #include "DebugWindow.hpp"
 
+#include <gsl/gsl>
 #include <imgui.h>
 #include <raylib.h>
+
+namespace
+{
+    static constexpr ImGuiWindowFlags WindowFlags =
+        ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoSavedSettings;
+
+    static constexpr float DebugWindowOffset = 10.0f;
+    
+    static constexpr float DebugWindowHoldTime = 0.4f;
+}
 
 namespace sfa
 {
     void DebugWindow::Draw(World& world, Player& player)
     {
-        if (IsKeyPressed(KEY_GRAVE))
+        if (IsKeyDown(KEY_GRAVE))
         {
-            m_showDebugWindow = !m_showDebugWindow;
+            m_showWindowTimer += GetFrameTime();
+        }
+        else
+        {
+            m_showWindowTimer = 0.0f;
         }
 
-        if (m_showDebugWindow)
+        if (m_showWindowTimer > DebugWindowHoldTime)
         {
-            ImGui::ShowDemoWindow(&m_showDebugWindow);
+            m_showDebugWindow = true;
+        }
+
+        if (!m_showDebugWindow)
+        {
+            return;
+        }
+
+        ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+        ImGui::SetNextWindowPos(ImVec2(DebugWindowOffset, DebugWindowOffset), ImGuiCond_Always);
+
+        auto windowEndGuard = gsl::finally(ImGui::End);
+        if (ImGui::Begin("Debug", &m_showDebugWindow, WindowFlags))
+        {
+            ImGui::Text("This is a window without decorations, fixed to the top-left corner!");
+            ImGui::Separator();
+            ImGui::Text("Current Display Size: %.1f x %.1f", displaySize.x, displaySize.y);
         }
     }
 }

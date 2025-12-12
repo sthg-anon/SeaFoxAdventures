@@ -28,6 +28,11 @@ namespace sfa
     class DebugWindow
     {
         bool m_showDebugWindow{ false };
+        float m_showWindowTimer{ 0.0f };
+
+#ifndef IMGUI_DISABLE_DEMO_WINDOWS
+        bool m_showDemoWindow{ false };
+#endif
 
         public:
             void Draw(World& world, Player& player);
