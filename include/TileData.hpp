@@ -28,7 +28,7 @@ namespace sfa
 {
     struct TileData
     {
-        float hardness;
+        float drill_speed_multiplier;
         bool isSolid;
         std::uint8_t texture_x;
         std::uint8_t texture_y;
@@ -39,7 +39,7 @@ namespace sfa
     {
         // Sky
         TileData{
-            .hardness = 0.0f,
+            .drill_speed_multiplier = 1.0f,
             .isSolid = false,
             .texture_x = 0,
             .texture_y = 0,
@@ -48,7 +48,7 @@ namespace sfa
 
         // WaterSurface
         TileData{
-            .hardness = 0.0f,
+            .drill_speed_multiplier = 1.0f,
             .isSolid = false,
             .texture_x = 1,
             .texture_y = 0,
@@ -57,7 +57,7 @@ namespace sfa
 
         // UnderWater
         TileData{
-            .hardness = 0.0f,
+            .drill_speed_multiplier = 1.0f,
             .isSolid = false,
             .texture_x = 2,
             .texture_y = 0,
@@ -66,7 +66,7 @@ namespace sfa
 
         // Earth
         TileData{
-            .hardness = 1.0f,
+            .drill_speed_multiplier = 1.0f,
             .isSolid = true,
             .texture_x = 3,
             .texture_y = 0,
@@ -75,7 +75,7 @@ namespace sfa
 
         // IronOre
         TileData{
-            .hardness = 1.5f,
+            .drill_speed_multiplier = 0.3f,
             .isSolid = true,
             .texture_x = 0,
             .texture_y = 1,

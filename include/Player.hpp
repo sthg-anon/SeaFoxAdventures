@@ -44,8 +44,8 @@ namespace sfa
         Vector2 m_velocity{ 0.0f, 0.0f };
 
         bool m_isDrilling{ false };
-
         float m_drillProgress{ 0.0f };
+        float m_drillSpeed{ 40.0f };
         
         bool CheckCollision(const World& world, float x, float y) const;
         bool TryBreakTile(World& world, float x, float y);

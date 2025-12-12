@@ -25,6 +25,7 @@
 #include <gsl/assert>
 #include <raylib.h>
 
+#include "TileData.hpp"
 #include "WorldCollision.hpp"
 #include "World.hpp"
 
@@ -203,6 +204,39 @@ namespace sfa
 
         if (world.IsTileSolidAt(pos) && World::IsInBounds(pos))
         {
+            auto tileData = GetTileData(world.GetTile(pos));
+
+            TraceLog(LOG_INFO, "Velocity: %.2f, %.2f", m_velocity.x, m_velocity.y);
+
+            if (m_velocity.x > CardinalDirectionTolerance)
+            {
+                m_velocity.x = m_drillSpeed;
+            }
+            else if (m_velocity.x < -CardinalDirectionTolerance)
+            {
+                m_velocity.x = -m_drillSpeed;
+            }
+            else
+            {
+                m_velocity.x = 0.0f;
+            }
+            
+            if (m_velocity.y > CardinalDirectionTolerance)
+            {
+                m_velocity.y = m_drillSpeed;
+            }
+            else if (m_velocity.y < -CardinalDirectionTolerance)
+            {
+                m_velocity.y = -m_drillSpeed;
+            }
+            else
+            {
+                m_velocity.y = 0.0f;
+            }
+
+            m_velocity.x *= tileData.drill_speed_multiplier;
+            m_velocity.y *= tileData.drill_speed_multiplier;
+
             DrillTile(world, pos);
             return true;
         }
