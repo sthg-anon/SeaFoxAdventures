@@ -24,6 +24,9 @@
 #include <imgui.h>
 #include <raylib.h>
 
+#include "world.hpp"
+#include "Player.hpp"
+
 namespace
 {
     static constexpr ImGuiWindowFlags WindowFlags =
@@ -54,6 +57,13 @@ namespace sfa
             m_showDebugWindow = true;
         }
 
+#ifndef IMGUI_DISABLE_DEMO_WINDOWS
+        if (m_showDemoWindow)
+        {
+            ImGui::ShowDemoWindow(&m_showDemoWindow);
+        }
+#endif
+
         if (!m_showDebugWindow)
         {
             return;
@@ -65,9 +75,18 @@ namespace sfa
         auto windowEndGuard = gsl::finally(ImGui::End);
         if (ImGui::Begin("Debug", &m_showDebugWindow, WindowFlags))
         {
-            ImGui::Text("This is a window without decorations, fixed to the top-left corner!");
-            ImGui::Separator();
-            ImGui::Text("Current Display Size: %.1f x %.1f", displaySize.x, displaySize.y);
+            auto pixelX = player.GetPosition().x;
+            auto pixelY = player.GetPosition().y;
+
+            ImGui::Text("Player position: %.1f, %.1f", pixelX, pixelY);
+            ImGui::Text("Player tile: %d, %d", World::PixelToTileCoord(PixelCoord{ pixelX }).Get(), World::PixelToTileCoord(PixelCoord{ pixelY }).Get());
+
+#ifndef IMGUI_DISABLE_DEMO_WINDOWS
+            if (ImGui::Button("ImGui Demo Window"))
+            {
+                m_showDemoWindow = true;
+            }
+#endif
         }
     }
 }
