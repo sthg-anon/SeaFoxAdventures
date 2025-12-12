@@ -33,6 +33,12 @@ namespace
     static constexpr float MaxSpeed = 100.0f;
     static constexpr float Drag = 3.0f;
     static constexpr float CollisionBoxTolerance = 3.0f;
+
+    // This value is used for determining if the player is moving in a cardina direction.
+    // The player only drills a tile if they're moving in a cardinal direction. This prevents
+    // them from drilling every tile they brush against while moving around.
+    // The lower this value, the more the player needs to hit the tile "head on" to drill it.
+    static constexpr float CardinalDirectionTolerance = 0.3f;
 }
 
 namespace sfa
@@ -132,7 +138,7 @@ namespace sfa
             }
             else
             {
-                TryBreakTile(world, testX, newPos.y, m_velocity.x, 0.0f);
+                TryBreakTile(world, testX, newPos.y);
                 m_velocity.x = 0.0f;
             }
         }
@@ -147,7 +153,7 @@ namespace sfa
             }
             else
             {
-                TryBreakTile(world, newPos.x, testY, 0.0f, m_velocity.y);
+                TryBreakTile(world, newPos.x, testY);
                 m_velocity.y = 0.0f;
             }
         }
@@ -160,12 +166,17 @@ namespace sfa
         return RectHitsSolid(world, x, y, PlayerHalfSize - CollisionBoxTolerance, PlayerHalfSize - CollisionBoxTolerance);
     }
 
-    void Player::TryBreakTile(World& world, float x, float y, float velX, float velY)
+    void Player::TryBreakTile(World& world, float x, float y)
     {
+        if (!IsMovingInCardinalDirection())
+        {
+            return;
+        }
+
         auto halfPlayer = PlayerHalfSize - CollisionBoxTolerance;
 
-        float collisionX = x + (velX > 0 ? halfPlayer : -halfPlayer);
-        float collisionY = y + (velY > 0 ? halfPlayer : -halfPlayer);
+        float collisionX = x + (m_velocity.x > 0 ? halfPlayer : -halfPlayer);
+        float collisionY = y + (m_velocity.y > 0 ? halfPlayer : -halfPlayer);
 
         auto tileX = World::PixelToTileCoord(PixelCoord{ collisionX });
         auto tileY = World::PixelToTileCoord(PixelCoord{ collisionY });
@@ -176,5 +187,16 @@ namespace sfa
         {
             world.SetTile(pos, TileType::UnderWater);
         }
+    }
+
+    bool Player::IsMovingInCardinalDirection() const
+    {
+        auto absVelX = std::abs(m_velocity.x);
+        auto absVelY = std::abs(m_velocity.y);
+        auto maxVel = std::max(absVelX, absVelY);
+        auto minVel = std::min(absVelX, absVelY);
+        auto cardinalRatio = minVel / maxVel;
+
+        return cardinalRatio < CardinalDirectionTolerance;
     }
 }
