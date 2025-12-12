@@ -32,6 +32,7 @@ namespace sfa
         bool isSolid;
         std::uint8_t texture_x;
         std::uint8_t texture_y;
+        std::uint32_t debug_img_color;
     };
 
     inline constexpr TileData g_tileData[static_cast<std::uint8_t>(TileType::Count)] =
@@ -42,6 +43,7 @@ namespace sfa
             .isSolid = false,
             .texture_x = 0,
             .texture_y = 0,
+            .debug_img_color = 0x67fffaffu
         },
 
         // WaterSurface
@@ -50,6 +52,7 @@ namespace sfa
             .isSolid = false,
             .texture_x = 1,
             .texture_y = 0,
+            .debug_img_color = 0x3177c1ffu
         },
 
         // UnderWater
@@ -58,6 +61,7 @@ namespace sfa
             .isSolid = false,
             .texture_x = 2,
             .texture_y = 0,
+            .debug_img_color = 0x1c0dcfffu
         },
 
         // Earth
@@ -66,6 +70,7 @@ namespace sfa
             .isSolid = true,
             .texture_x = 3,
             .texture_y = 0,
+            .debug_img_color = 0x663831ffu
         },
 
         // IronOre
@@ -74,6 +79,7 @@ namespace sfa
             .isSolid = true,
             .texture_x = 0,
             .texture_y = 1,
+            .debug_img_color = 0xafa8a7ffu
         }
     };
 

@@ -24,6 +24,8 @@
 #include <imgui.h>
 #include <raylib.h>
 
+#include "TileData.hpp"
+#include "TileRange.hpp"
 #include "world.hpp"
 #include "Player.hpp"
 
@@ -87,6 +89,25 @@ namespace sfa
                 m_showDemoWindow = true;
             }
 #endif
+
+            if (ImGui::Button("Write World .png"))
+            {
+                DumpWorldToFile(world);
+            }
         }
+    }
+
+    void DebugWindow::DumpWorldToFile(const World& world)
+    {
+        auto img = GenImageColor(WorldWidth, WorldHeight, WHITE);
+        auto imgCleanupGuard = gsl::finally([img] { UnloadImage(img); });
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
+        {
+            auto tileType = world.GetTile(pos);
+            Color color = GetColor(GetTileData(tileType).debug_img_color);
+            ImageDrawPixel(&img, pos.x.Get(), pos.y.Get(), color);
+        }
+
+        ExportImage(img, "World.png");
     }
 }

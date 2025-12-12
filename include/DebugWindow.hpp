@@ -34,7 +34,10 @@ namespace sfa
         bool m_showDemoWindow{ false };
 #endif
 
-        public:
-            void Draw(World& world, Player& player);
+    public:
+        void Draw(World& world, Player& player);
+
+    private:
+        void DumpWorldToFile(const World& world);
     };
 }
