@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2025 sthg-anon
-* 
+*
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
 * arising from the use of this software.
@@ -18,36 +18,12 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <raylib.h>
-#include <gsl/gsl>
+#pragma once
 
-#include "Player.hpp"
-#include "Renderer.hpp"
-#include "World.hpp"
-#include "WorldGenerator.hpp"
-
-int main()
+namespace sfa
 {
-    const int screenWidth = sfa::VirtualScreenWidth * 4;
-    const int screenHeight = sfa::VirtualScreenHeight * 4;
+    class World;
+    class Player;
 
-    InitWindow(screenWidth, screenHeight, "Sea Fox Adventures");
-    auto cleanup = gsl::finally(CloseWindow);
-
-    SetTargetFPS(60);
-
-    sfa::Renderer renderer(screenWidth, screenHeight);
-    static sfa::World world;
-    sfa::generate_world(world);
-
-    sfa::Player player;
-
-    while (!WindowShouldClose())
-    {
-        player.ProcessInputs();
-        player.MoveWithCollision(world);
-        renderer.DrawFrame(world, player);
-    }
-
-    return EXIT_SUCCESS;
+    void DrawDebugWindow(World& world, Player& player);
 }

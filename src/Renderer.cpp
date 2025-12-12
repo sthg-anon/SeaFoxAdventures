@@ -25,10 +25,12 @@
 
 #include <gsl/gsl>
 #include <raylib.h>
+#include <rlImGui.h>
 
 #include "assets/sprites/Tiles.hpp"
 #include "assets/sprites/Player.hpp"
 #include "Coordinate.hpp"
+#include "DebugWindow.hpp"
 #include "Player.hpp"
 #include "TileRange.hpp"
 #include "World.hpp"
@@ -54,6 +56,8 @@ namespace sfa
         m_camera.offset = Vector2{ static_cast<float>(VirtualScreenWidth) * 0.5f, static_cast<float>(VirtualScreenHeight) * 0.5f };
 
         SetTextureFilter(m_renderTexture.texture, TEXTURE_FILTER_POINT);
+
+        rlImGuiSetup(true);
     }
 
     float Renderer::GetVirtualRatio() const
@@ -66,6 +70,7 @@ namespace sfa
         UnloadRenderTexture(m_renderTexture);
         UnloadTexture(m_tilesTexture);
         UnloadTexture(m_playerTexture);
+        rlImGuiShutdown();
     }
 
     Rectangle Renderer::GetSourceRec() const
@@ -133,6 +138,10 @@ namespace sfa
             EndMode2D();
 
             // More resolution-independent drawing stuff can happen here.
+
+            rlImGuiBegin();
+            auto rlImGuiEndGuard = gsl::finally(rlImGuiEnd);
+            DrawDebugWindow(world, player);
         }
     }
 

@@ -14,6 +14,7 @@ add_executable(SeaFoxAdventures)
 set(SFA_SOURCE_FILES
     src/assets/sprites/Player.cpp
     src/assets/sprites/Tiles.cpp
+    src/DebugWindow.cpp
     src/main.cpp
     src/Player.cpp
     src/Renderer.cpp
@@ -24,6 +25,7 @@ set(SFA_SOURCE_FILES
     include/assets/sprites/Player.hpp
     include/assets/sprites/Tiles.hpp
     include/Coordinate.hpp
+    include/DebugWindow.hpp
     include/Player.hpp
     include/Renderer.hpp
     include/TileData.hpp
