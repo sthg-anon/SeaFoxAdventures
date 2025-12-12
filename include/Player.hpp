@@ -31,7 +31,7 @@ namespace sfa
     class Player
     {
         // Player position
-        Vector2 m_position{ 32.f, 32.f };
+        Vector2 m_position{ 504.0f, 200.0f };
 
         // Where the player wants to face
         float m_targetRotation{ 0.0f };
