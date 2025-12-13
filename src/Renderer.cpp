@@ -242,16 +242,16 @@ namespace sfa
             Rectangle{
                 Constants::WorldTileSizePixels,
                 0,
-                WorldTileSizePixels,
-                flipY * WorldTileSizePixels
+                Constants::WorldTileSizePixels,
+                flipY * Constants::WorldTileSizePixels
             },
             Rectangle{
                 player.GetPosition().x,
                 player.GetPosition().y,
-                WorldTileSizePixels,
-                WorldTileSizePixels
+                Constants::WorldTileSizePixels,
+                Constants::WorldTileSizePixels
             },
-            Vector2{ Constants::PlayerHalfSize - WorldTileSizePixels, Constants::PlayerHalfSize },
+            Vector2{ Constants::PlayerHalfSize - Constants::WorldTileSizePixels, Constants::PlayerHalfSize },
             m_currentPlayerRotation,
             WHITE);
     }
