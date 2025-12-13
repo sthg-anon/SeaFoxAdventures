@@ -12,6 +12,7 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 add_executable(SeaFoxAdventures)
 
 set(SFA_SOURCE_FILES
+    src/assets/fonts/Console.cpp
     src/assets/sprites/Player.cpp
     src/assets/sprites/Tiles.cpp
     src/DebugWindow.cpp
@@ -22,6 +23,7 @@ set(SFA_SOURCE_FILES
     src/WorldCollision.cpp
     src/WorldGenerator.cpp
 
+    include/assets/fonts/Console.hpp
     include/assets/sprites/Player.hpp
     include/assets/sprites/Tiles.hpp
     include/Coordinate.hpp

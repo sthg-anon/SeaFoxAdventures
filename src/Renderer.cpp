@@ -27,6 +27,7 @@
 #include <raylib.h>
 #include <rlImGui.h>
 
+#include "assets/fonts/Console.hpp"
 #include "assets/sprites/Tiles.hpp"
 #include "assets/sprites/Player.hpp"
 #include "Coordinate.hpp"
@@ -48,6 +49,7 @@ namespace sfa
         , m_tilesTexture{ GetTilesTexture() }
         , m_playerTexture{ GetPlayerTexture() }
         , m_currentPlayerRotation{ 0.0f }
+        , m_font{ LoadFont() }
     {
         Expects(screenWidth > 0);
         Expects(screenHeight > 0);
@@ -70,6 +72,7 @@ namespace sfa
         UnloadRenderTexture(m_renderTexture);
         UnloadTexture(m_tilesTexture);
         UnloadTexture(m_playerTexture);
+        UnloadFont(m_font);
         rlImGuiShutdown();
     }
 
@@ -100,8 +103,6 @@ namespace sfa
 
     void Renderer::DrawFrame(World& world, Player& player)
     {
-        const float virtualRatio = GetVirtualRatio();
-
         // Camera follows player
         m_camera.target = player.GetPosition();
         m_camera.target.x = std::round(m_camera.target.x);
@@ -120,6 +121,14 @@ namespace sfa
             // Draw stuff to texture
             DrawWorld(world);
             DrawPlayer(player);
+
+            DrawTextEx(
+                m_font,
+                "Sea Fox Adventures",
+                Vector2{ 50.0f, 50.0f },
+                9,
+                2,
+                BLACK);
         }
 
         {
@@ -256,5 +265,10 @@ namespace sfa
         Texture2D playerTexture = LoadTextureFromImage(playerImage);
         SetTextureFilter(playerTexture, TEXTURE_FILTER_POINT);
         return playerTexture;
+    }
+
+    Font Renderer::LoadFont()
+    {
+        return LoadFontFromMemory(".ttf", ConsoleFontTTF, static_cast<int>(ConsoleFontTTF_size), 9, nullptr, 0);
     }
 }

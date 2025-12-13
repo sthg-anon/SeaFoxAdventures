@@ -63,6 +63,8 @@ namespace sfa
 
         DebugWindow m_debugWindow;
 
+        Font m_font;
+
     public:
         Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
         ~Renderer();
@@ -81,5 +83,6 @@ namespace sfa
         void DrawPlayer(Player& player);
         static Texture2D GetTilesTexture();
         static Texture2D GetPlayerTexture();
+        static Font LoadFont();
     };
 }
