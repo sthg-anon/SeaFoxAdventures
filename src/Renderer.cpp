@@ -51,8 +51,6 @@ namespace sfa
         : m_screenDimensions{ dimensions }
         , m_camera{ 0 }
         , m_renderTexture{ LoadRenderTexture(VirtualScreenWidth, VirtualScreenHeight) }
-        , m_sourceRec{ GetSourceRec() }
-        , m_destRec{ GetDestRec() }
         , m_tilesTexture{ GetTilesTexture() }
         , m_playerTexture{ GetPlayerTexture() }
         , m_currentPlayerRotation{ 0.0f }
@@ -81,31 +79,6 @@ namespace sfa
         UnloadTexture(m_playerTexture);
         UnloadFont(m_font);
         rlImGuiShutdown();
-    }
-
-    Rectangle Renderer::GetSourceRec() const
-    {
-        // This is the entire render texture. The height is negative because
-        // it needs to be flipped for "opengl reasons".
-        return Rectangle{
-            0.0f,
-            0.0f,
-            static_cast<float>(m_renderTexture.texture.width),
-            static_cast<float>(-m_renderTexture.texture.height)
-        };
-    }
-
-    Rectangle Renderer::GetDestRec() const
-    {
-        // Normally the destination rectangle would be the size of the window itself, but we
-        // add "virtual ratio" padding around the edges to avoid artifacts.
-        const float virtualRatio = GetVirtualRatio();
-        return Rectangle{
-            -virtualRatio,
-            -virtualRatio,
-            static_cast<float>(m_screenDimensions.width.Get()) + (virtualRatio * 2),
-            static_cast<float>(m_screenDimensions.height.Get()) + (virtualRatio * 2)
-        };
     }
 
     void Renderer::DrawFrame(World& world, Player& player)
@@ -146,8 +119,18 @@ namespace sfa
 
             DrawTexturePro(
                 m_renderTexture.texture,
-                m_sourceRec,
-                m_destRec,
+                Rectangle{
+                    0.0f,
+                    0.0f,
+                    static_cast<float>(m_renderTexture.texture.width),
+                    static_cast<float>(-m_renderTexture.texture.height)
+                },
+                Rectangle{
+                    0.0f,
+                    0.0f,
+                    static_cast<float>(m_screenDimensions.width.Get()),
+                    static_cast<float>(m_screenDimensions.height.Get())
+                },
                 Vector2{ 0.0f, 0.0f },
                 0.0f,
                 WHITE);

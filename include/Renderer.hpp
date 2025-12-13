@@ -43,11 +43,6 @@ namespace sfa
         // managed by the Renderer and must be cleaned up.
         RenderTexture2D m_renderTexture;
 
-        // Source and destination rectangles for "projecting" the render texture to
-        // the screen.
-        Rectangle m_sourceRec;
-        Rectangle m_destRec;
-
         // Tiles texture for drawing the world.
         Texture2D m_tilesTexture;
 
@@ -75,8 +70,6 @@ namespace sfa
 
     private:
         float GetVirtualRatio() const;
-        Rectangle GetSourceRec() const;
-        Rectangle GetDestRec() const;
         void DrawWorld(World& world);
         void DrawPlayer(Player& player);
         static Texture2D GetTilesTexture();
