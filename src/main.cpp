@@ -18,6 +18,8 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <stdexcept>
+
 #include <raylib.h>
 #include <gsl/gsl>
 
@@ -27,7 +29,7 @@
 #include "World.hpp"
 #include "WorldGenerator.hpp"
 
-int main()
+int RunGame()
 {
     auto screenDimensions = sfa::Renderer::GetScreenDimensions(4);
 
@@ -50,4 +52,22 @@ int main()
     }
 
     return EXIT_SUCCESS;
+}
+
+int main()
+{
+    try
+    {
+        return RunGame();
+    }
+    catch (const std::exception& e)
+    {
+        fprintf(stderr, "Unhandled exception: %s\n", e.what());
+        return EXIT_FAILURE;
+    }
+    catch (...)
+    {
+        fprintf(stderr, "Unhandled unknown exception\n");
+        return EXIT_FAILURE;
+    }
 }
