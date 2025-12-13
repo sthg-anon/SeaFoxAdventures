@@ -29,7 +29,7 @@
 
 int main()
 {
-    auto screenDimensions = sfa::Renderer::GetScreenDimensions(3);
+    auto screenDimensions = sfa::Renderer::GetScreenDimensions(4);
 
     InitWindow(screenDimensions.width.Get(), screenDimensions.height.Get(), "Sea Fox Adventures");
     auto cleanup = gsl::finally(CloseWindow);
