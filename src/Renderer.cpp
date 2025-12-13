@@ -163,23 +163,23 @@ namespace sfa
 
     void Renderer::DrawWorld(World& world)
     {
-        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ Constants::WorldWidth }, TileCoord{ Constants::WorldHeight }))
         {
             const TileType tileType = world.GetTile(pos);
             const auto tileData = GetTileData(tileType);
             DrawTexturePro(
                 m_tilesTexture,
                 Rectangle{
-                    static_cast<float>(tileData.texture_x * WorldTileSizePixels),
-                    static_cast<float>(tileData.texture_y * WorldTileSizePixels),
-                    WorldTileSizePixels,
-                    WorldTileSizePixels
+                    static_cast<float>(tileData.texture_x * Constants::WorldTileSizePixels),
+                    static_cast<float>(tileData.texture_y * Constants::WorldTileSizePixels),
+                    Constants::WorldTileSizePixels,
+                    Constants::WorldTileSizePixels
                 },
                 Rectangle{
-                    static_cast<float>(pos.x.Get() * WorldTileSizePixels),
-                    static_cast<float>(pos.y.Get() * WorldTileSizePixels),
-                    WorldTileSizePixels,
-                    WorldTileSizePixels
+                    static_cast<float>(pos.x.Get() * Constants::WorldTileSizePixels),
+                    static_cast<float>(pos.y.Get() * Constants::WorldTileSizePixels),
+                    Constants::WorldTileSizePixels,
+                    Constants::WorldTileSizePixels
                 },
                 Vector2{ 0.0f, 0.0f },
                 0.0f,
@@ -223,14 +223,14 @@ namespace sfa
             Rectangle{
                 0,
                 0,
-                WorldTileSizePixels,
-                flipY * WorldTileSizePixels
+                Constants::WorldTileSizePixels,
+                flipY * Constants::WorldTileSizePixels
             },
             Rectangle{
                 player.GetPosition().x,
                 player.GetPosition().y,
-                WorldTileSizePixels,
-                WorldTileSizePixels
+                Constants::WorldTileSizePixels,
+                Constants::WorldTileSizePixels
             },
             Vector2{ Constants::PlayerHalfSize, Constants::PlayerHalfSize },
             m_currentPlayerRotation,
@@ -240,7 +240,7 @@ namespace sfa
         DrawTexturePro(
             m_playerTexture,
             Rectangle{
-                16,
+                Constants::WorldTileSizePixels,
                 0,
                 WorldTileSizePixels,
                 flipY * WorldTileSizePixels

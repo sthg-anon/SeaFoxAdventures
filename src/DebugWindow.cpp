@@ -24,6 +24,7 @@
 #include <imgui.h>
 #include <raylib.h>
 
+#include "Constants.hpp"
 #include "TileData.hpp"
 #include "TileRange.hpp"
 #include "world.hpp"
@@ -37,7 +38,6 @@ namespace
         ImGuiWindowFlags_NoSavedSettings;
 
     static constexpr float DebugWindowOffset = 10.0f;
-    
     static constexpr float DebugWindowHoldTime = 0.4f;
 }
 
@@ -99,9 +99,9 @@ namespace sfa
 
     void DebugWindow::DumpWorldToFile(const World& world)
     {
-        auto img = GenImageColor(WorldWidth, WorldHeight, WHITE);
+        auto img = GenImageColor(Constants::WorldWidth, Constants::WorldHeight, WHITE);
         auto imgCleanupGuard = gsl::finally([img] { UnloadImage(img); });
-        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ Constants::WorldWidth }, TileCoord{ Constants::WorldHeight }))
         {
             auto tileType = world.GetTile(pos);
             Color color = GetColor(GetTileData(tileType).debug_img_color);

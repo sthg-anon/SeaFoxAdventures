@@ -31,7 +31,7 @@ namespace sfa
 {
     namespace
     {
-        const std::int32_t WaterDepth = 5;
+        constexpr std::int32_t WaterDepth = 5;
     }
 
     void generate_world(World& world)
@@ -41,26 +41,26 @@ namespace sfa
         std::uniform_real_distribution<float> dist(0.0f, 1.0f);
 
         /* Sky */
-        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ WorldWidth }, TileCoord{ SkyHeight }))
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ 0 }, TileCoord{ Constants::WorldWidth }, TileCoord{ Constants::SkyHeight }))
         {
             world.SetTile(pos, TileType::Sky);
         }
 
         /* Water surface */
-        auto waterSurfaceY = SkyHeight;
-        for (std::int32_t x = 0; x < WorldWidth; ++x)
+        auto waterSurfaceY = Constants::SkyHeight;
+        for (std::int32_t x = 0; x < Constants::WorldWidth; ++x)
         {
             world.SetTile(TilePosition{ TileCoord{ x }, TileCoord{ waterSurfaceY } }, TileType::WaterSurface);
         }
 
         /* Water */
-        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + 1 }, TileCoord{ WorldWidth }, TileCoord{ waterSurfaceY + WaterDepth }))
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + 1 }, TileCoord{ Constants::WorldWidth }, TileCoord{ waterSurfaceY + WaterDepth }))
         {
             world.SetTile(pos, TileType::UnderWater);
         }
 
         /* Underground */
-        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + WaterDepth + 1 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + WaterDepth + 1 }, TileCoord{ Constants::WorldWidth }, TileCoord{ Constants::WorldHeight }))
         {
             auto r = dist(gen);
             if (r < 0.8f)
@@ -70,7 +70,7 @@ namespace sfa
         }
 
         /* Iron ore */
-        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + WaterDepth + 1 }, TileCoord{ WorldWidth }, TileCoord{ WorldHeight }))
+        for (const auto& pos : TileRange(TileCoord{ 0 }, TileCoord{ waterSurfaceY + WaterDepth + 1 }, TileCoord{ Constants::WorldWidth }, TileCoord{ Constants::WorldHeight }))
         {
             auto r = dist(gen);
             if (r < 0.05f)

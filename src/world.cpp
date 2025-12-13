@@ -22,6 +22,7 @@
 
 #include <gsl/assert>
 
+#include "Constants.hpp"
 #include "TileData.hpp"
 
 namespace sfa
@@ -33,21 +34,21 @@ namespace sfa
 
     TileType World::GetTile(TilePosition pos) const
     {
-        Expects(pos.x.Get() >= 0 && pos.x.Get() < WorldWidth);
-        Expects(pos.y.Get() >= 0 && pos.y.Get() < WorldHeight);
-        return m_tiles[pos.y.Get() * WorldWidth + pos.x.Get()];
+        Expects(pos.x.Get() >= 0 && pos.x.Get() < Constants::WorldWidth);
+        Expects(pos.y.Get() >= 0 && pos.y.Get() < Constants::WorldHeight);
+        return m_tiles[pos.y.Get() * Constants::WorldWidth + pos.x.Get()];
     }
 
     void World::SetTile(TilePosition pos, TileType type)
     {
-        Expects(pos.x.Get() >= 0 && pos.x.Get() < WorldWidth);
-        Expects(pos.y.Get() >= 0 && pos.y.Get() < WorldHeight);
-        m_tiles[pos.y.Get() * WorldWidth + pos.x.Get()] = type;
+        Expects(pos.x.Get() >= 0 && pos.x.Get() < Constants::WorldWidth);
+        Expects(pos.y.Get() >= 0 && pos.y.Get() < Constants::WorldHeight);
+        m_tiles[pos.y.Get() * Constants::WorldWidth + pos.x.Get()] = type;
     }
 
     bool World::IsTileSolidAt(TilePosition pos) const
     {
-        if (pos.x.Get() < 0 || pos.y.Get() < 0 || pos.x.Get() >= WorldWidth || pos.y.Get() >= WorldHeight)
+        if (pos.x.Get() < 0 || pos.y.Get() < 0 || pos.x.Get() >= Constants::WorldWidth || pos.y.Get() >= Constants::WorldHeight)
         {
             return true;
         }

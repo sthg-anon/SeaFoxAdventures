@@ -207,8 +207,6 @@ namespace sfa
         {
             auto tileData = GetTileData(world.GetTile(pos));
 
-            TraceLog(LOG_INFO, "Velocity: %.2f, %.2f", m_velocity.x, m_velocity.y);
-
             if (m_velocity.x > CardinalDirectionTolerance)
             {
                 m_velocity.x = m_drillSpeed;
@@ -265,7 +263,7 @@ namespace sfa
     void Player::DrillTile(World& world, TilePosition pos)
     {
         m_isDrilling = true;
-        m_drillProgress = WorldTileSizePixels - CollisionBoxTolerance - 1.0f;
+        m_drillProgress = Constants::WorldTileSizePixels - CollisionBoxTolerance - 1.0f;
     }
 
     void Player::PullPlayerThoughTile(World& world)
@@ -288,7 +286,7 @@ namespace sfa
         auto magnitude = std::max(std::abs(dx), std::abs(dy));
         m_drillProgress -= magnitude;
 
-        float drillProgressRatio = 1.0f - (m_drillProgress / (WorldTileSizePixels - CollisionBoxTolerance - 1.0f));
+        float drillProgressRatio = 1.0f - (m_drillProgress / (Constants::WorldTileSizePixels - CollisionBoxTolerance - 1.0f));
 
         if (absDx > 0.5f)
         {

@@ -20,7 +20,15 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace sfa::Constants
 {
-    constexpr float PlayerHalfSize = 8.0f;
+    constexpr std::int32_t WorldTileSizePixels = 16;
+    constexpr float PlayerHalfSize = static_cast<float>(WorldTileSizePixels) / 2.0f;
+
+    constexpr std::int32_t WorldWidth = 64;
+    constexpr std::int32_t WorldHeight = 1024;
+
+    constexpr std::int32_t SkyHeight = 10;
 }

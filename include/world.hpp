@@ -24,20 +24,15 @@
 #include <cmath>
 #include <cstdint>
 
+#include "Constants.hpp"
 #include "Coordinate.hpp"
 #include "TileType.hpp"
 
 namespace sfa
 {
-    constexpr std::int32_t WorldWidth = 64;
-    constexpr std::int32_t WorldHeight = 1024;
-    constexpr std::int32_t SkyHeight = 10;
-
-    constexpr std::int32_t WorldTileSizePixels = 16;
-
     class World
     {
-        std::array<TileType, WorldWidth * WorldHeight> m_tiles;
+        std::array<TileType, Constants::WorldWidth * Constants::WorldHeight> m_tiles;
 
     public:
         World();
@@ -53,18 +48,18 @@ namespace sfa
 
         static TileCoord PixelToTileCoord(PixelCoord worldPos)
         {
-            return TileCoord{ static_cast<std::int32_t>(std::floor(worldPos.Get() / WorldTileSizePixels)) };
+            return TileCoord{ static_cast<std::int32_t>(std::floor(worldPos.Get() / Constants::WorldTileSizePixels)) };
         }
 
         static PixelCoord TileToPixelCoord(TileCoord pixelPos)
         {
-            return PixelCoord{ (pixelPos.Get() * WorldTileSizePixels) + 8.0f };
+            return PixelCoord{ (pixelPos.Get() * Constants::WorldTileSizePixels) + Constants::PlayerHalfSize };
         }
 
         static bool IsInBounds(TilePosition pos)
         {
-            return pos.x.Get() >= 0 && pos.x.Get() < WorldWidth &&
-                   pos.y.Get() >= 0 && pos.y.Get() < WorldHeight;
+            return pos.x.Get() >= 0 && pos.x.Get() < Constants::WorldWidth &&
+                   pos.y.Get() >= 0 && pos.y.Get() < Constants::WorldHeight;
         }
     };
 }
