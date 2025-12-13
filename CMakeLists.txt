@@ -26,6 +26,7 @@ set(SFA_SOURCE_FILES
     include/assets/fonts/Console.hpp
     include/assets/sprites/Player.hpp
     include/assets/sprites/Tiles.hpp
+    include/Constants.hpp
     include/Coordinate.hpp
     include/DebugWindow.hpp
     include/Player.hpp

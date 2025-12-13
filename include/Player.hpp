@@ -28,7 +28,6 @@ namespace sfa
 {
     class World;
 
-    static constexpr float PlayerHalfSize = 8.0f;
 
     class Player
     {

@@ -30,6 +30,7 @@
 #include "assets/fonts/Console.hpp"
 #include "assets/sprites/Tiles.hpp"
 #include "assets/sprites/Player.hpp"
+#include "Constants.hpp"
 #include "Coordinate.hpp"
 #include "DebugWindow.hpp"
 #include "Player.hpp"
@@ -37,11 +38,17 @@
 #include "World.hpp"
 #include "TileData.hpp"
 
+namespace
+{
+    constexpr std::int32_t VirtualScreenWidth = 320;
+    constexpr std::int32_t VirtualScreenHeight = 180;
+    constexpr float PlayerRotationSpeed = 10.0f;
+}
+
 namespace sfa
 {
-    Renderer::Renderer(std::int32_t screenWidth, std::int32_t screenHeight)
-        : m_screenWidth(screenWidth)
-        , m_screenHeight(screenHeight)
+    Renderer::Renderer(ScreenDimensions dimensions)
+        : m_screenDimensions{ dimensions }
         , m_camera{ 0 }
         , m_renderTexture{ LoadRenderTexture(VirtualScreenWidth, VirtualScreenHeight) }
         , m_sourceRec{ GetSourceRec() }
@@ -51,8 +58,8 @@ namespace sfa
         , m_currentPlayerRotation{ 0.0f }
         , m_font{ LoadFont() }
     {
-        Expects(screenWidth > 0);
-        Expects(screenHeight > 0);
+        Expects(m_screenDimensions.width.Get() > 0);
+        Expects(m_screenDimensions.height.Get() > 0);
 
         m_camera.zoom = 1.0f;
         m_camera.offset = Vector2{ static_cast<float>(VirtualScreenWidth) * 0.5f, static_cast<float>(VirtualScreenHeight) * 0.5f };
@@ -64,7 +71,7 @@ namespace sfa
 
     float Renderer::GetVirtualRatio() const
     {
-        return static_cast<float>(m_screenWidth) / static_cast<float>(VirtualScreenWidth);
+        return static_cast<float>(m_screenDimensions.width.Get()) / static_cast<float>(VirtualScreenWidth);
     }
 
     Renderer::~Renderer()
@@ -96,8 +103,8 @@ namespace sfa
         return Rectangle{
             -virtualRatio,
             -virtualRatio,
-            static_cast<float>(m_screenWidth) + (virtualRatio * 2),
-            static_cast<float>(m_screenHeight) + (virtualRatio * 2)
+            static_cast<float>(m_screenDimensions.width.Get()) + (virtualRatio * 2),
+            static_cast<float>(m_screenDimensions.height.Get()) + (virtualRatio * 2)
         };
     }
 
@@ -225,7 +232,7 @@ namespace sfa
                 WorldTileSizePixels,
                 WorldTileSizePixels
             },
-            Vector2{ PlayerHalfSize, PlayerHalfSize },
+            Vector2{ Constants::PlayerHalfSize, Constants::PlayerHalfSize },
             m_currentPlayerRotation,
             WHITE);
 
@@ -244,7 +251,7 @@ namespace sfa
                 WorldTileSizePixels,
                 WorldTileSizePixels
             },
-            Vector2{ PlayerHalfSize - WorldTileSizePixels, PlayerHalfSize },
+            Vector2{ Constants::PlayerHalfSize - WorldTileSizePixels, Constants::PlayerHalfSize },
             m_currentPlayerRotation,
             WHITE);
     }
@@ -270,5 +277,10 @@ namespace sfa
     Font Renderer::LoadFont()
     {
         return LoadFontFromMemory(".ttf", ConsoleFontTTF, static_cast<int>(ConsoleFontTTF_size), 9, nullptr, 0);
+    }
+
+    ScreenDimensions Renderer::GetScreenDimensions(std::int32_t scale)
+    {
+        return ScreenDimensions{ ScreenCoord{VirtualScreenWidth * scale}, ScreenCoord{VirtualScreenHeight * scale} };
     }
 }

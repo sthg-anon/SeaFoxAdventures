@@ -24,22 +24,18 @@
 
 #include <raylib.h>
 
+#include "Coordinate.hpp"
 #include "DebugWindow.hpp"
 #include "Player.hpp"
 #include "world.hpp"
 
 namespace sfa
 {
-    const std::int32_t VirtualScreenWidth = 320;
-    const std::int32_t VirtualScreenHeight = 180;
-    constexpr float PlayerRotationSpeed = 10.0f;
-
     class Renderer
     {
     private:
         // The dimensions of the actual window that is being rendered to.
-        std::int32_t m_screenWidth;
-        std::int32_t m_screenHeight;
+        ScreenDimensions m_screenDimensions;
 
         Camera2D m_camera;
 
@@ -66,7 +62,7 @@ namespace sfa
         Font m_font;
 
     public:
-        Renderer(std::int32_t screenWidth, std::int32_t screenHeight);
+        Renderer(ScreenDimensions dimensions);
         ~Renderer();
         Renderer(const Renderer&) = delete;
         Renderer& operator=(const Renderer&) = delete;
@@ -74,6 +70,8 @@ namespace sfa
         Renderer& operator=(Renderer&&) = delete;
 
         void DrawFrame(World& world, Player& player);
+
+        static ScreenDimensions GetScreenDimensions(std::int32_t scale);
 
     private:
         float GetVirtualRatio() const;

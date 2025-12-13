@@ -25,6 +25,7 @@
 #include <gsl/assert>
 #include <raylib.h>
 
+#include "Constants.hpp"
 #include "TileData.hpp"
 #include "WorldCollision.hpp"
 #include "World.hpp"
@@ -182,7 +183,7 @@ namespace sfa
 
     bool Player::CheckCollision(const World& world, float x, float y) const
     {
-        return RectHitsSolid(world, x, y, PlayerHalfSize - CollisionBoxTolerance, PlayerHalfSize - CollisionBoxTolerance);
+        return RectHitsSolid(world, x, y, Constants::PlayerHalfSize - CollisionBoxTolerance, Constants::PlayerHalfSize - CollisionBoxTolerance);
     }
 
     bool Player::TryBreakTile(World& world, float x, float y)
@@ -192,7 +193,7 @@ namespace sfa
             return false;
         }
 
-        auto halfPlayer = PlayerHalfSize - CollisionBoxTolerance;
+        auto halfPlayer = Constants::PlayerHalfSize - CollisionBoxTolerance;
 
         float collisionX = x + (m_velocity.x > 0 ? halfPlayer : -halfPlayer);
         float collisionY = y + (m_velocity.y > 0 ? halfPlayer : -halfPlayer);

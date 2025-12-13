@@ -26,6 +26,7 @@ namespace sfa
 {
     struct PixelTag {};
     struct TileTag {};
+    struct ScreenTag {};
 
     template<typename T, typename Tag>
     struct Coordinate
@@ -47,10 +48,17 @@ namespace sfa
 
     using PixelCoord = Coordinate<float, PixelTag>;
     using TileCoord = Coordinate<std::int32_t, TileTag>;
+    using ScreenCoord = Coordinate<std::int32_t, ScreenTag>;
 
     struct TilePosition
     {
         TileCoord x;
         TileCoord y;
+    };
+
+    struct ScreenDimensions
+    {
+        ScreenCoord width;
+        ScreenCoord height;
     };
 }
