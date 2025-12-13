@@ -17,6 +17,7 @@ set(SFA_SOURCE_FILES
     src/assets/sprites/Tiles.cpp
     src/DebugWindow.cpp
     src/main.cpp
+    src/MenuDisplay.cpp
     src/Player.cpp
     src/Renderer.cpp
     src/World.cpp
@@ -29,6 +30,7 @@ set(SFA_SOURCE_FILES
     include/Constants.hpp
     include/Coordinate.hpp
     include/DebugWindow.hpp
+    include/MenuDisplay.hpp
     include/Player.hpp
     include/Renderer.hpp
     include/TileData.hpp

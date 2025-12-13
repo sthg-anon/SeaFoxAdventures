@@ -55,6 +55,7 @@ namespace sfa
         , m_playerTexture{ GetPlayerTexture() }
         , m_currentPlayerRotation{ 0.0f }
         , m_font{ LoadFont() }
+        , m_menuDisplay{ VirtualScreenWidth, VirtualScreenHeight }
     {
         Expects(m_screenDimensions.width.Get() > 0);
         Expects(m_screenDimensions.height.Get() > 0);
@@ -134,7 +135,6 @@ namespace sfa
                 Vector2{ 0.0f, 0.0f },
                 0.0f,
                 WHITE);
-            EndMode2D();
 
             // More resolution-independent drawing stuff can happen here.
 

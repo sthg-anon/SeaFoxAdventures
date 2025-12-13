@@ -26,6 +26,7 @@
 
 #include "Coordinate.hpp"
 #include "DebugWindow.hpp"
+#include "MenuDisplay.hpp"
 #include "Player.hpp"
 #include "world.hpp"
 
@@ -55,6 +56,8 @@ namespace sfa
         DebugWindow m_debugWindow;
 
         Font m_font;
+
+        MenuDisplay m_menuDisplay;
 
     public:
         Renderer(ScreenDimensions dimensions);
