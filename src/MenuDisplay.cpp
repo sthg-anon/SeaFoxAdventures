@@ -29,10 +29,15 @@ namespace sfa
     MenuDisplay::MenuDisplay(std::int32_t pixelWidth, std::int32_t pixelHeight)
         : m_displayRenderTexture{ LoadRenderTexture(pixelWidth, pixelHeight) }
     {
+        SetTextureFilter(m_displayRenderTexture.texture, TEXTURE_FILTER_POINT);
     }
 
     MenuDisplay::~MenuDisplay()
     {
         UnloadRenderTexture(m_displayRenderTexture);
+    }
+
+    void MenuDisplay::DrawMenu()
+    {
     }
 }

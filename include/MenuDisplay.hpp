@@ -38,5 +38,9 @@ namespace sfa
         MenuDisplay& operator=(const MenuDisplay&) = delete;
         MenuDisplay(MenuDisplay&&) = delete;
         MenuDisplay& operator=(MenuDisplay&&) = delete;
+
+        const RenderTexture2D& GetRenderTexture() const { return m_displayRenderTexture; }
+
+        void DrawMenu();
     };
 }

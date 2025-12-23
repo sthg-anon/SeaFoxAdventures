@@ -1,0 +1,75 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3" pages="2">
+  <diagram id="exQAVvhxw6Cp0BVhBos-" name="HUD">
+    <mxGraphModel dx="2180" dy="1458" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-1" value="Sea Fox Adventures" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.window;align=left;verticalAlign=top;spacingLeft=8;strokeColor2=#008cff;strokeColor3=#c4c4c4;fontColor=#666666;mainText=;fontSize=17;labelBackgroundColor=none;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="400" y="250" width="910" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-2" value="Depth: 250m" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="780" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-3" value="Mass: 50kg + 56kg" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="490" y="780" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-4" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.misc.progressBar;fillColor=#cccccc;strokeColor=none;fillColor2=#99ddff;barPos=80;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="785" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-5" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.misc.progressBar;fillColor=#cccccc;strokeColor=none;fillColor2=#99ddff;barPos=80;" vertex="1" parent="1">
+          <mxGeometry x="830" y="785" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-6" value="Shield:" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="780" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9tvlDXSHCVJXc6YMudJn-7" value="Power:" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="770" y="780" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9htNpRQiiM8SVHfRoAE4" name="Page-2">
+    <mxGraphModel dx="1090" dy="729" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ipkq-oA_NFk_7bcRb9lC-1" value="Sea Fox Adventures" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.window;align=left;verticalAlign=top;spacingLeft=8;strokeColor2=#008cff;strokeColor3=#c4c4c4;fontColor=#666666;mainText=;fontSize=17;labelBackgroundColor=none;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="390" y="270" width="910" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="ipkq-oA_NFk_7bcRb9lC-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="615" y="380" width="460" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="630" y="410" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="630" y="460" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="630" y="510" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="630" y="560" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="630" y="610" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-6" value="Chaos Drive" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="660" y="415" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-7" value="Shield" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="670" y="465" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-8" value="Drill" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="670" y="515" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-9" value="Engine" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="670" y="565" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aGjKvonsZRq6KQE4Hf9j-10" value="Cargo" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="670" y="615" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

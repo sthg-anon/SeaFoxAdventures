@@ -84,6 +84,8 @@ namespace sfa
 
     void Renderer::DrawFrame(World& world, Player& player)
     {
+        m_menuDisplay.DrawMenu();
+
         // Camera follows player
         m_camera.target = player.GetPosition();
         m_camera.target.x = std::round(m_camera.target.x);
@@ -135,6 +137,25 @@ namespace sfa
                 Vector2{ 0.0f, 0.0f },
                 0.0f,
                 WHITE);
+
+            DrawTexturePro(
+                m_menuDisplay.GetRenderTexture().texture,
+                Rectangle{
+                    0.0f,
+                    0.0f,
+                    static_cast<float>(m_menuDisplay.GetRenderTexture().texture.width),
+                    static_cast<float>(-m_menuDisplay.GetRenderTexture().texture.height)
+                },
+                Rectangle{
+                    0.0f,
+                    0.0f,
+                    static_cast<float>(m_screenDimensions.width.Get()),
+                    static_cast<float>(m_screenDimensions.height.Get())
+                },
+                Vector2{ 0.0f, 0.0f },
+                0.0f,
+                WHITE
+            );
 
             // More resolution-independent drawing stuff can happen here.
 
